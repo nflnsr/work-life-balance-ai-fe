@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Delius_Unicase } from "next/font/google";
 import "@/app/globals.css";
 import ReactQueryProvider from "@/provider/react-query-provider";
 import AuthProvider from "@/provider/auth-provider";
-// import { cookies } from "next/headers";
 import { Toaster } from "@/components/ui/sonner";
-
-// async function getCookies() {
-//   const cookieStore = await cookies();
-//   const token = cookieStore.get("token");
-
-//   return token?.value;
-// }
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +13,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const deliusUnicase = Delius_Unicase({
+  variable: "--font-delius-unicase",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -33,12 +31,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const token = await getCookies();
-
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${deliusUnicase.variable} antialiased`}
       >
         <Toaster className="bg-purple-600"/>
         <ReactQueryProvider>

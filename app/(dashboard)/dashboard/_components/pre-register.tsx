@@ -15,15 +15,13 @@ import {
   questionnaireAnswerSchema,
 } from "@/validator/questionnaire";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   Form,
   FormControl,
   FormField,
-  FormMessage,
 } from "@/components/ui/form";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useAxiosPrivate } from "@/hooks/use-axios-private";
@@ -34,7 +32,6 @@ export default function PreRegisterPage({
   isStudent?: boolean;
 }) {
   const questions = isStudent ? studentListQuestions : workerListQuestions;
-  // console.log(isStudent, "student?");
 
   const form = useForm<QuestionnaireAnswerFormType>({
     resolver: zodResolver(questionnaireAnswerSchema),
@@ -83,22 +80,21 @@ export default function PreRegisterPage({
       await new Promise((resolve) => setTimeout(resolve, 5000));
       return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["wlb-latest"] }),
+        queryClient.invalidateQueries({ queryKey: ["profile"] }),
+      ]);
       toast.success("Questionnaire submitted successfully");
       form.reset();
     },
   });
 
-  console.log(form.formState.errors, "errrr");
-
   function onSubmit(input: QuestionnaireAnswerFormType) {
-    console.log("test");
-    console.log("Submitting form with input:", input);
     mutateAnswerQuestionnaire(input);
   }
 
-  const lagiloading = true;
+  const ispendinganswer = true;
   return (
     <div className="h-full max-h-[calc(100%-var(--header-height))] w-full">
       <Form {...form}>
@@ -106,8 +102,8 @@ export default function PreRegisterPage({
           onSubmit={form.handleSubmit(onSubmit)}
           className="h-full min-h-[calc(100%-var(--header-height))] rounded-xl py-5"
         >
-          {isPendingAnswerQuestionnaire && (
-            <div className="flex h-full motion-blur-in-md motion-opacity-in-0 motion-translate-y-in-100 flex-col items-center justify-center gap-4 pb-24 text-center">
+          {ispendinganswer && (
+            <div className="flex h-[50%] motion-blur-in-md motion-opacity-in-0 motion-translate-y-in-100 flex-col items-center justify-center gap-4 pb-24 text-center">
               <p>Waiting AI to calculate...</p>
               <span className="block size-10 animate-spin rounded-full border-t-2 border-b-2 border-stone-600" />
               <div className="">
@@ -579,67 +575,6 @@ export default function PreRegisterPage({
     </div>
   );
 }
-
-// const workerListQuestions = [
-//   "Saya merasa puas dengan pekerjaan saya saat ini.",
-//   "Fasilitas kerja yang tersedia cukup menunjang pekerjaan saya.",
-//   "Saya merasa memiliki tanggung jawab penuh atas pekerjaan saya.",
-//   "Atasan saya memberikan bantuan ketika saya menghadapi kesulitan kerja.",
-//   "Atasan saya menghargai usaha dan kontribusi saya.",
-//   "Atasan saya memperlakukan semua karyawan secara adil.",
-//   "Saya memiliki hubungan yang baik dengan rekan kerja.",
-//   "Rekan kerja saya bersedia membantu ketika saya membutuhkannya.",
-//   "Terdapat kompetisi yang sehat di lingkungan kerja saya.",
-//   "Promosi jabatan dilakukan secara teratur di tempat kerja saya.",
-//   "Saya merasa memiliki kesempatan untuk dipromosikan.",
-//   "Setiap promosi disertai dengan peningkatan keterampilan.",
-//   "Gaji yang saya terima mencukupi kebutuhan hidup saya.",
-//   "Saya menerima bonus berdasarkan kinerja saya.",
-//   "Saya mengalami kenaikan gaji secara teratur.",
-//   "Saya dapat membagi waktu dengan baik antara pekerjaan dan kehidupan pribadi.",
-//   "Saya memiliki waktu cukup untuk menjalani aktivitas pribadi.",
-//   "Saya dapat tetap berperilaku baik dan profesional saat bekerja.",
-//   "Saya mampu memisahkan masalah pribadi dengan pekerjaan.",
-//   "Saya mampu mengatasi tekanan pribadi saat bekerja.",
-//   "Saya dapat menerima kritik dengan baik saat bekerja.",
-//   "Saya tidak merasa khawatir terhadap masalah pribadi saat bekerja.",
-//   "Saya menikmati pekerjaan saya.",
-//   "Pekerjaan saya memberikan kebahagiaan dalam hidup saya.",
-//   "Pekerjaan saya membuat hidup saya lebih tenang.",
-//   "Kehidupan pribadi saya meningkatkan semangat saya dalam bekerja.",
-//   "Saya memiliki cukup waktu untuk melakukan aktivitas pribadi.",
-//   "Saya dapat menghabiskan waktu pribadi dengan baik dan seimbang.",
-// ];
-
-// const studentListQuestions = [
-//   "Saya merasa puas dengan kegiatan akademik saya saat ini.",
-//   "Fasilitas akademik yang saya miliki mendukung saya dalam belajar.",
-//   "Saya merasa bertanggung jawab terhadap tugas dan kewajiban akademik saya.",
-//   "Pembimbing belajar saya memberikan bantuan saat saya mengalami kesulitan.",
-//   "Saya merasa dihargai atas usaha dan kontribusi saya dalam kegiatan akademik.",
-//   "Saya memiliki hubungan yang baik dengan teman-teman saya.",
-//   "Teman-teman saya bersedia membantu ketika saya membutuhkannya.",
-//   "Terdapat kompetisi yang sehat di lingkungan akademik saya.",
-//   "Terdapat kesempatan untuk melakukan pengembangan diri di lingkungan akademik.",
-//   "Saya merasa kemampuan dan keterampilan saya kian meningkat.",
-//   "Saya tidak memiliki kesulitan ekonomi dalam menunjang pendidikan saya.",
-//   "Saya merasa wawasan finansial saya terus meningkat.",
-//   "Saya bisa mengatasi tekanan pribadi saat menjalani perkuliahan.",
-//   "Saya dapat menerima saran dan kritik dari orang lain dengan baik.",
-//   "Saya menikmati proses belajar dan kegiatan akademik lainnya.",
-//   "Saya bisa membagi waktu dengan baik antara akademik dan kehidupan personal.",
-//   "Selain aktivitas akademik saya juga sedang melakukan kegiatan magang/bekerja.",
-//   "Saya memiliki cukup waktu untuk mengeksplorasi bidang yang saya tekuni.",
-//   "Saya dapat mengatasi masalah pribadi dengan baik.",
-//    "Saya merasa cemas terhadap masa depan dan karier saya.",
-//   "Terkadang saya merasa overthinking terhadap hal-hal kecil dalam kehidupan sehari-hari.",
-//   "Saya merasa kurang beristirahat akhir-akhir ini.",
-//   "Saya mengalami kesulitan dalam mencari peluang magang atau kerja.",
-//   "Saya memiliki kebiasaan atau hobi yang membantu saya mengurangi stres.",
-//   "Kesehatan fisik dan mental saya seimbang.",
-//   "Saya merasa memiliki tujuan hidup yang jelas.",
-//   "Saya memiliki tempat bercerita atau seseorang yang bisa dipercaya saat saya merasa tertekan.",
-// ];
 
 const studentListQuestions = [
   // Akademik

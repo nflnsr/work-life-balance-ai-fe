@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import {
-  axiosInstance,
   axiosPrivateInstance,
   axiosPrivateInstance2,
 } from "@/lib/utils";
@@ -51,8 +50,7 @@ export function useAxiosPrivate() {
             `Bearer ${data.data.accessToken}`;
             prevRequest.sent = true;
             setIsLoading?.(false);
-            // return axiosPrivateInstance(prevRequest);
-            return;
+            return axiosPrivateInstance(prevRequest);
           } catch (error) {
             console.error("Failed to refresh token:", error);
           }
