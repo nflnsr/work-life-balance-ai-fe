@@ -153,10 +153,10 @@ export default function Page() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="-z-10 flex h-0 min-h-[calc(100%-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(/images/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
+          className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(/images/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
         >
-          <div className="mb-8 h-full w-full pt-12 pb-10">
-            <div className="mx-auto h-full w-full max-w-[475px] rounded-2xl bg-[rgba(255,255,255,0.25)] shadow-2xl backdrop-blur-[8px]">
+          <div className="h-full w-full min-h-[calc(100vh-8rem-var(--header-height))]">
+            <div className="mx-auto h-full my-8 w-full max-w-[475px] min-h-[calc(100vh-8rem-var(--header-height))] rounded-2xl bg-[rgba(255,255,255,0.25)] shadow-2xl backdrop-blur-[8px]">
               <div className="pt-6 text-center">
                 <div className="mx-auto h-fit w-fit rounded-lg bg-gradient-to-br from-cyan-500 to-gray-800 px-16 py-1.5">
                   <h1 className="font-mono text-lg font-bold text-white">
@@ -516,6 +516,10 @@ export default function Page() {
                             showCloseButton={false}
                             closeDialog={() => setOpenDialog(false)}
                           >
+                            <DialogTitle className="font-sans text-2xl">
+                              {/* One step ahead! */}
+                            </DialogTitle>
+                            {/* <DialogHeader> */}
                             <Button
                               onClick={() => setOpenDialog(false)}
                               className="absolute top-3 right-3 bg-white h-6 w-4 text-black hover:bg-stone-200"

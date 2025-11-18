@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { formSchema, FormType } from "@/validator/login";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -22,12 +22,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 export default function Page() {
-  // const [carouselIndex, setCarouselIndex] = useState(0);
-  // const handleCarouselChange = (index: number) => {
-  //   setCarouselIndex(index);
-  // };
   const { setAccessToken, setUser, setIsLoggedIn } = useAuthStore();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: async (input: FormType) => {
@@ -40,6 +37,9 @@ export default function Page() {
       setUser(data.data.user);
       setIsLoggedIn(true);
       router.replace("/dashboard");
+      // setTimeout(() => {
+      //   queryClient.invalidateQueries({ queryKey: ["profile"] });
+      // }, 500);
     },
     onError: () => {
       toast.error("Login failed");
@@ -59,17 +59,13 @@ export default function Page() {
     mutateLogin(input);
   }
 
-  // const [isStudent, setIsStudent] = useState<"mahasiswa" | "pekerja">(
-  //   "mahasiswa",
-  // );
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="-z-10 flex h-0 min-h-[calc(100%-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(/images/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
+        className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(/images/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
       >
-        <div className="w-full pb-10">
+        <div className="w-full pb-10 h-full">
           <div className="mx-auto h-full w-full max-w-[500px] rounded-2xl bg-[rgba(255,255,255,0.25)] pt-10 pb-10 shadow-2xl backdrop-blur-[8px]">
             <div className="text-center">
               <div className="mx-auto h-fit w-fit rounded-lg bg-gradient-to-br from-cyan-500 to-gray-800 px-6 py-1.5 sm:px-20">
@@ -77,7 +73,7 @@ export default function Page() {
                   LOGIN
                 </h1>
               </div>
-              <div className="px-6 pt-10 sm:px-14 space-y-6">
+              <div className="space-y-6 px-6 pt-10 sm:px-14">
                 <div>
                   <FormField
                     control={form.control}

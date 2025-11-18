@@ -4,18 +4,12 @@ import { BarChart2, Clock, Compass, Heart, Lightbulb, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/feature-card";
 import HeroIllustration from "@/components/hero-illustration";
-// import { usePathname } from "next/navigation";
-// import { useAuthStore } from "@/store/auth";
+import { WhyUseUs } from "@/components/why-use-us";
 
 export default function Home() {
-  // const [activeNavLink, setActiveNavLink] = useState("");
-
-  // const pathname = usePathname();
-
   return (
     <div className="">
       <main>
-        {/* Hero Section */}
         <section className="container mx-auto px-8 py-10 lg:py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 relative">
@@ -92,7 +86,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Features Section */}
+        <section className="container mx-auto">
+          <WhyUseUs />
+        </section>
+
         <section id="features" className="container mx-auto px-8 py-10 sm:py-20">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
@@ -135,7 +132,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="container mx-auto px-8 py-16">
           <div className="bg-gradient-to-r from-teal-700 to-teal-900 text-white rounded-3xl px-8 py-12 sm:p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -152,7 +148,6 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="bg-gray-100 py-12">
         <div className="container mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">

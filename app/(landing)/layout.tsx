@@ -15,24 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <html lang="en">
-    //     <body
-    //       className={`${geistSans.variable} ${geistMono.variable} antialiased bg-green-600 dark:bg-green-500`}
-    //     >
     <ProtectedRouteProvider>
-      <div className="relative min-h-screen overflow-hidden">
-        {/* Geometric Background */}
+      <div className="relative min-h-[calc(100vh-4rem)]">
         <GeometricBackground />
-
-        {/* Main Content Card */}
-        <div className="relative mx-auto my-8 h-0 min-h-[calc(100vh-4rem)] max-w-6xl overflow-hidden rounded-3xl bg-white/95 shadow-2xl backdrop-opacity-80">
-          {/* Navigation */}
+        <div className="relative mx-auto my-8 h-full min-h-[calc(100vh-4rem)] max-w-6xl rounded-3xl bg-white/95 shadow-2xl backdrop-opacity-80">
           <Header />
           {children}
         </div>
       </div>
     </ProtectedRouteProvider>
-    //     </body>
-    // </html>
   );
 }
