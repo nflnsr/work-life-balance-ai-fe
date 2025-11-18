@@ -9,6 +9,7 @@ interface IProfile {
   field: string;
   hobbies?: string;
   hasAnsweredQuestionnaire: boolean;
+  createdAt: Date;
 }
 
 export type { IProfile };
