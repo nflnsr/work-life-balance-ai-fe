@@ -100,9 +100,8 @@ export default function Dashboard() {
   const { user, setIsLoading } = useAuthStore();
   console.log("user di dashboard:", user);
   const [openAddSchedule, setOpenAddSchedule] = useState(false);
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const [showDialogAlertChatAI, setShowDialogAlertChatAI] = useState(false);
   const [openAddNotes, setOpenAddNotes] = useState(false);
 
   const form = useForm<CreateScheduleForm>({
@@ -155,7 +154,7 @@ export default function Dashboard() {
     score: dataWlbHistory?.[i]?.score,
   }));
 
-  const { data: dataChat } = useQuery({
+  const { data: dataChat, isLoading: isLoadingChatAI } = useQuery({
     queryKey: ["chat"],
     queryFn: async () => {
       const { data } = await axiosPrivate.get("/chat");
@@ -207,7 +206,7 @@ export default function Dashboard() {
     mutateCreateSchedule(data);
   }
 
-  const { mutate: mutateChatAi } = useMutation({
+  const { mutate: mutateChatAi, isPending: isPendingChatAI } = useMutation({
     mutationKey: ["chat-ai"],
     mutationFn: async (message: string) => {
       const response = await axiosPrivate.post("/chat", { message });
@@ -370,7 +369,7 @@ export default function Dashboard() {
 
         {/* Dashboard content */}
         {user?.hasAnsweredQuestionnaire ? (
-          <main className="h- p-6 pb-0">
+          <main className="p-6 pb-20">
             <div className="mb-6">
               <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
               <p className="mt-1 text-sm text-gray-500">
@@ -1246,9 +1245,7 @@ export default function Dashboard() {
               </p>
             </div>
 
-            <div className="bg-white">
-              <div className="rounded-tr-md border">
-                <div className="border-b-2 px-3 pt-1 pb-2">
+                <div className="border px-3 pt-1 pb-2 rounded-tr-md">
                   <Label
                     htmlFor="message"
                     className="block pt-1 pb-0.5 text-sm font-medium text-gray-700"
@@ -1260,8 +1257,16 @@ export default function Dashboard() {
                     <span className="font-bold text-teal-600">7</span>
                   </Label>
                 </div>
+            <div className="rounded-b-md max-h-[550px] sm:max-h-[600px] overflow-y-auto border bg-white">
+              <div>
 
-                <div className="space-y-2 px-2 pt-4 sm:px-4">
+                <div className="relative space-y-2 px-2 pt-4 sm:px-4">
+                  {(isLoadingChatAI || isPendingChatAI) && (
+                    <div className="absolute top-1/2 left-1/2 z-10 flex size-full -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white/40">
+                      <span className="block size-20 animate-spin rounded-full border-t-2 border-b-2 border-stone-600" />
+                      {/* <span>Loading...</span> */}
+                    </div>
+                  )}
                   {dataChat?.map((chatItem: any, index: number) => (
                     <div key={index} className="flex flex-col gap-2">
                       <div className="flex gap-2 self-end pl-5">
@@ -1289,8 +1294,11 @@ export default function Dashboard() {
                   <Textarea
                     id="chat-ai"
                     rows={3}
+                    minLength={3}
+                    required
                     className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     placeholder="Type your question here..."
+                    disabled={isPendingChatAI || isLoadingChatAI}
                   />
                   <Button
                     type="button"
@@ -1301,13 +1309,46 @@ export default function Dashboard() {
                       ) as HTMLTextAreaElement;
                       if (textarea) {
                         const message = textarea.value;
+                        console.log(message, "ini pesan chat");
+                        if (message.trim().length < 3) {
+                          setShowDialogAlertChatAI(true);
+                          return;
+                        }
                         mutateChatAi(message);
                         textarea.value = "";
                       }
                     }}
+                    disabled={isPendingChatAI || isLoadingChatAI}
                   >
                     <SendHorizonal className="h-4 w-4" />
                   </Button>
+
+                  <Dialog
+                    open={showDialogAlertChatAI}
+                    onOpenChange={setShowDialogAlertChatAI}
+                  >
+                    <DialogContent showCloseButton={false}>
+                      <DialogHeader>
+                        <DialogTitle>
+                          Oops! Please enter a message with at least 3
+                          characters.
+                        </DialogTitle>
+                        <DialogDescription>
+                          Your message is too short to process. Kindly provide
+                          more details so I can assist you better.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogClose asChild>
+                        <Button
+                          className="bg-red-500 text-white hover:bg-red-400 hover:text-white hover:opacity-90"
+                          variant="outline"
+                          onClick={() => setShowDialogAlertChatAI(false)}
+                        >
+                          Close
+                        </Button>
+                      </DialogClose>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </div>
