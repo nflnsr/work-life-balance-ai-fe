@@ -94,7 +94,7 @@ export default function PreRegisterPage({
     mutateAnswerQuestionnaire(input);
   }
 
-  const ispendinganswer = true;
+  // const ispendinganswer = true;
   return (
     <div className="h-full max-h-[calc(100%-var(--header-height))] w-full">
       <Form {...form}>
@@ -102,8 +102,8 @@ export default function PreRegisterPage({
           onSubmit={form.handleSubmit(onSubmit)}
           className="h-full min-h-[calc(100%-var(--header-height))] rounded-xl py-5"
         >
-          {ispendinganswer && (
-            <div className="flex h-[50%] motion-blur-in-md motion-opacity-in-0 motion-translate-y-in-100 flex-col items-center justify-center gap-4 pb-24 text-center">
+          {isPendingAnswerQuestionnaire && (
+            <div className="flex h-full motion-blur-in-md motion-opacity-in-0 motion-translate-y-in-100 flex-col items-center justify-center gap-4 pb-24 text-center">
               <p>Waiting AI to calculate...</p>
               <span className="block size-10 animate-spin rounded-full border-t-2 border-b-2 border-stone-600" />
               <div className="">
@@ -546,13 +546,12 @@ export default function PreRegisterPage({
                           )}
                         />
                       </ScrollArea>
-                      {/* );
-              })} */}
+                          
                       {index === Math.ceil(questions.length / 5) - 1 && (
                         <div className="flex w-full justify-center px-1">
                           <Button
                             type="submit"
-                            className="w-full rounded-lg bg-green-600 px-2 py-2 font-semibold text-white"
+                            className="w-full rounded-lg bg-green-600 px-2 py-2 font-semibold text-white cursor-pointer hover:bg-green-600 hover:opacity-75"
                           >
                             Submit
                           </Button>

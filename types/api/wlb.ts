@@ -20,6 +20,7 @@ interface IRecommendation {
   title: string;
   description: string;
   priority: "High" | "Medium" | "Low";
+  checked: boolean;
 }
 
 export type { IWlb, IDimensionalScore, IRecommendation };

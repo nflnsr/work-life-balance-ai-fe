@@ -11,10 +11,7 @@ import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
-  // FormDescription,
   FormField,
-  // FormItem,
-  // FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -30,25 +27,19 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  // DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Eye, EyeClosed, XIcon } from "lucide-react";
 import { toast } from "sonner";
 import { axiosInstance } from "@/lib/utils";
-// import { useAuth } from "@/hooks/use-auth";
-import { useAuthStore } from "@/store/auth";
-import { setRefreshToken } from "@/server/auth";
 import { AxiosError } from "axios";
 import { Response } from "@/types/response";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  // const [showDialogTrigger, setShowDialogTrigger] = useState(false);
   const [showCheckingIndicator, setShowCheckingIndicator] = useState(false);
-  const { setAccessToken, setUser, setIsLoggedIn } = useAuthStore();
   const router = useRouter();
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
@@ -56,11 +47,7 @@ export default function Page() {
       const { data } = await axiosInstance.post("/user/register", input);
       return data;
     },
-    onSuccess: (data) => {
-      // setRefreshToken(data.data.refreshToken);
-      // setAccessToken(data.data.accessToken);
-      // setUser(data.data.user);
-      // setIsLoggedIn(true);
+    onSuccess: () => {
       toast.success("Register berhasil, silakan login");
       router.replace("/login");
     },

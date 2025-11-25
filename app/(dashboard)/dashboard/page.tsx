@@ -3,8 +3,6 @@
 import React from "react";
 
 import PreRegister from "./_components/pre-register";
-// import dynamic from "next/dynamic";
-import { GoogleGenAI } from "@google/genai";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -65,7 +63,7 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
-import { IWlb } from "@/types/api/wlb";
+import { IRecommendation, IWlb } from "@/types/api/wlb";
 import { CircularProgress } from "@/components/ui/circular-progress";
 import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
@@ -75,14 +73,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-export const description = "A simple area chart";
-
-const chartConfig = {
-  score: {
-    label: "score",
-    color: "var(--chart-2)",
-  },
-} satisfies ChartConfig;
+import { ISchedule } from "@/types/api/schedule";
+import { INote } from "@/types/api/note";
+import { IChat } from "@/types/api/chat";
 
 // const PreRegister = dynamic(() => import("./_components/pre-register"));
 
@@ -121,7 +114,7 @@ export default function Dashboard() {
     queryKey: ["notes"],
     queryFn: async () => {
       const { data } = await axiosPrivate.get("/note/me");
-      return data;
+      return data as INote[];
     },
   });
 
@@ -129,7 +122,7 @@ export default function Dashboard() {
     queryKey: ["schedule"],
     queryFn: async () => {
       const { data } = await axiosPrivate.get("/schedule/today");
-      return data;
+      return data as ISchedule[];
     },
   });
 
@@ -158,7 +151,7 @@ export default function Dashboard() {
     queryKey: ["chat"],
     queryFn: async () => {
       const { data } = await axiosPrivate.get("/chat");
-      return data;
+      return data as IChat[];
     },
   });
 
@@ -201,8 +194,6 @@ export default function Dashboard() {
   });
 
   function onSubmit(data: CreateScheduleForm) {
-    console.log("Submitting form with input:", data);
-    data.looping === "" && (data.looping = null);
     mutateCreateSchedule(data);
   }
 
@@ -231,6 +222,13 @@ export default function Dashboard() {
 
   const currentTime = new Date().toTimeString().slice(0, 5);
 
+  const chartConfig = {
+    score: {
+      label: "score",
+      color: "var(--chart-2)",
+    },
+  } satisfies ChartConfig;
+
   useEffect(() => {
     setIsLoading?.(true);
     if (user?.field) {
@@ -249,8 +247,11 @@ export default function Dashboard() {
       <div
         className={`fixed inset-y-0 top-0 left-0 z-50 h-screen w-64 transform bg-white shadow-lg transition-transform duration-500 ease-in-out lg:sticky lg:w-64 lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } ${!user?.field && "blur-xs"}`}
+        } ${!user?.hasAnsweredQuestionnaire && "pointer-events-auto select-auto"}`}
       >
+        <div
+          className={`absolute top-18 flex h-[calc(100%-var(--header-height))] w-full bg-white/40 ${!user?.hasAnsweredQuestionnaire ? "backdrop-blur-[2px]" : "-z-10"}`}
+        />
         <div className="flex h-[calc(var(--header-height))] items-center justify-between border-b p-4 shadow-sm">
           <div className="flex items-center gap-2">
             <Compass className="h-6 w-6 text-amber-600" />
@@ -322,7 +323,7 @@ export default function Dashboard() {
               </Link>
             </div>
           </div>
-          <div className="absolute bottom-4 w-full px-4">
+          <div className="absolute bottom-4 z-5 w-full px-4">
             <Button
               disabled={isLoadingLogout}
               onClick={() => mutateLogout()}
@@ -360,7 +361,7 @@ export default function Dashboard() {
                   height={32}
                 />
                 <span className="ml-2 text-sm font-medium text-gray-700">
-                  Alex Johnson
+                  {user?.name}
                 </span>
               </div>
             </div>
@@ -394,25 +395,10 @@ export default function Dashboard() {
                           <div className="text-center">
                             <span
                               className={`block text-4xl font-bold ${dataWlbLatest && dataWlbLatest?.score >= 75 ? "text-green-600" : dataWlbLatest && dataWlbLatest?.score >= 50 ? "text-amber-500" : "text-red-600"}`}
-                            >
-                              {/* {dataWlb?.score} */}
-                            </span>
-                            {/* <span className="text-sm text-gray-500">Good</span> */}
+                            ></span>
                           </div>
                         </div>
-                        {/* <svg className="h-full w-full" viewBox="0 0 100 100"> */}
-                        {/* <circle
-                            className="text-gray-200"
-                            strokeWidth="10"
-                            stroke="currentColor"
-                            fill="transparent"
-                            r="40"
-                            cx="50"
-                            cy="50"
-                          /> */}
                         <CircularProgress value={dataWlbLatest?.score || 0} />
-
-                        {/* </svg> */}
                       </div>
                       <div className="w-full max-w-96 flex-1 space-y-4">
                         <div className="space-y-1.5 md:pr-8">
@@ -442,37 +428,6 @@ export default function Dashboard() {
                             );
                           })}
                         </div>
-                        {/* <div>
-                          <div className="mb-1 flex items-center justify-between">
-                            <span className="text-sm font-medium">
-                              Work Hours
-                            </span>
-                            <span className="text-sm text-gray-500">
-                              42h / week
-                            </span>
-                          </div>
-                          <Progress value={70} className="h-2 bg-gray-200" />
-                        </div>
-                        <div>
-                          <div className="mb-1 flex items-center justify-between">
-                            <span className="text-sm font-medium">
-                              Personal Time
-                            </span>
-                            <span className="text-sm text-gray-500">
-                              28h / week
-                            </span>
-                          </div>
-                          <Progress value={47} className="h-2 bg-gray-200" />
-                        </div>
-                        <div>
-                          <div className="mb-1 flex items-center justify-between">
-                            <span className="text-sm font-medium">
-                              Sleep Quality
-                            </span>
-                            <span className="text-sm text-gray-500">Good</span>
-                          </div>
-                          <Progress value={80} className="h-2 bg-gray-200" />
-                        </div> */}
                       </div>
                     </div>
                   </CardContent>
@@ -502,104 +457,60 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent className="">
                     <ul className="space-y-4">
-                      {/* <li className="flex gap-4">
-                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-amber-100">
-                          <Clock className="h-5 w-5 text-amber-600" />
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-medium">
-                            Reduce overtime hours
-                          </h4>
-                          <p className="text-sm text-gray-500">
-                            You&apos;ve worked late 3 days this week. Try to
-                            leave on time tomorrow.
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex gap-4">
-                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-teal-100">
-                          <Heart className="h-5 w-5 text-teal-600" />
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-medium">
-                            Schedule a wellness activity
-                          </h4>
-                          <p className="text-sm text-gray-500">
-                            You haven&apos;t had any exercise in 4 days.
-                            Consider a 30-minute walk.
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex gap-4">
-                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-100">
-                          <Calendar className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-medium">
-                            Block focus time
-                          </h4>
-                          <p className="text-sm text-gray-500">
-                            Your calendar shows back-to-back meetings. Block 2
-                            hours for focused work.
-                          </p>
-                        </div>
-                      </li> */}
-
-                      {dataWlbLatest?.recommendations.map((item: any) => (
-                        <li key={item.id} className="flex gap-4">
-                          {/* ICON → center */}
-                          <div
-                            className={`hidden h-10 w-10 flex-shrink-0 items-center justify-center self-center rounded-full sm:flex ${
-                              item.priority === "High"
-                                ? "bg-red-100"
-                                : item.priority === "Medium"
-                                  ? "bg-amber-100"
-                                  : "bg-teal-100"
-                            }`}
-                          >
-                            {item.priority === "High" ? (
-                              <Siren className="h-5 w-5 text-red-600" />
-                            ) : item.priority === "Medium" ? (
-                              <TriangleAlert className="h-5 w-5 text-amber-600" />
-                            ) : (
-                              <ShieldHalf className="h-5 w-5 text-teal-600" />
-                            )}
-                          </div>
-
-                          {/* TITLE + DESCRIPTION → center */}
-                          <div className="self-center">
-                            <h4 className="text-sm font-medium">
-                              {item.title}
-                            </h4>
-                            <p className="text-sm text-gray-500">
-                              {item.description}
-                            </p>
-                          </div>
-
-                          {/* BUTTON → top */}
-                          <div className="self-start">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              aria-disabled={item.checked}
-                              tabIndex={item.checked ? -1 : 0}
-                              onClick={() => {
-                                if (item.checked) return;
-                                mutateRecommendationChecked(item.id);
-                              }}
-                              className={`${
-                                item.checked
-                                  ? "cursor-default border-green-600 bg-green-50 hover:bg-green-100"
-                                  : "cursor-pointer"
+                      {dataWlbLatest?.recommendations.map(
+                        (item: IRecommendation) => (
+                          <li key={item.id} className="flex gap-4">
+                            <div
+                              className={`hidden h-10 w-10 flex-shrink-0 items-center justify-center self-center rounded-full sm:flex ${
+                                item.priority === "High"
+                                  ? "bg-red-100"
+                                  : item.priority === "Medium"
+                                    ? "bg-amber-100"
+                                    : "bg-teal-100"
                               }`}
                             >
-                              <Check
-                                className={`size-4 ${item.checked ? "text-green-600" : ""}`}
-                              />
-                            </Button>
-                          </div>
-                        </li>
-                      ))}
+                              {item.priority === "High" ? (
+                                <Siren className="h-5 w-5 text-red-600" />
+                              ) : item.priority === "Medium" ? (
+                                <TriangleAlert className="h-5 w-5 text-amber-600" />
+                              ) : (
+                                <ShieldHalf className="h-5 w-5 text-teal-600" />
+                              )}
+                            </div>
+
+                            <div className="self-center">
+                              <h4 className="text-sm font-medium">
+                                {item.title}
+                              </h4>
+                              <p className="text-sm text-gray-500">
+                                {item.description}
+                              </p>
+                            </div>
+
+                            <div className="self-start">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                aria-disabled={item.checked}
+                                tabIndex={item.checked ? -1 : 0}
+                                onClick={() => {
+                                  if (item.checked) return;
+                                  mutateRecommendationChecked(item.id);
+                                }}
+                                className={`${
+                                  item.checked
+                                    ? "cursor-default border-green-600 bg-green-50 hover:bg-green-100"
+                                    : "cursor-pointer"
+                                }`}
+                              >
+                                <Check
+                                  className={`size-4 ${item.checked ? "text-green-600" : ""}`}
+                                />
+                              </Button>
+                            </div>
+                          </li>
+                        ),
+                      )}
                     </ul>
                   </CardContent>
                 </Card>
@@ -865,8 +776,27 @@ export default function Dashboard() {
                         dataSchedule.map((items: { items: any[] }) => {
                           const item = items.items;
                           return ( */}
+
                       <>
-                        {dataSchedule?.map((item: any, index: number) => {
+                        {dataSchedule?.length === 0 && (
+                          <div className="mx-auto w-full pb-2">
+                            <p className="text-center text-[14px] text-gray-500">
+                              There is no schedule for today.
+                            </p>
+                            {/* <p className="text-center text-[14px] text-gray-500">
+                            Create one now!
+                          </p> */}
+                            <div className="pt-2">
+                              <Button
+                                onClick={() => setOpenAddSchedule(true)}
+                                className="mx-auto block bg-stone-300/75 text-center text-black hover:bg-stone-200"
+                              >
+                                Create Now!
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                        {dataSchedule?.map((item, index: number) => {
                           const isPast =
                             currentTime >
                             new Date(item.time).toTimeString().slice(0, 5);
@@ -966,26 +896,27 @@ export default function Dashboard() {
                       )}
                     </div>
                     <div className="space-y-3">
-                      {new Date().toLocaleDateString("en-US", {
+                      {dataNotes?.[0]?.date &&
+                      new Date().toLocaleDateString("en-US", {
                         weekday: "long",
                         year: "numeric",
                         month: "long",
                         day: "numeric",
                       }) !==
-                      new Date(dataNotes?.[0]?.date).toLocaleDateString(
-                        "en-US",
-                        {
-                          weekday: "long",
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        },
-                      ) ? (
+                        new Date(dataNotes?.[0]?.date).toLocaleDateString(
+                          "en-US",
+                          {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          },
+                        ) ? (
                         <>
                           {!openAddNotes && (
                             <div className="mx-auto w-full pb-2">
                               <p className="text-center text-[14px] text-gray-500">
-                                There's no note for today.
+                                There&apos;s no note for today.
                               </p>
                               <p className="text-center text-[14px] text-gray-500">
                                 Create one now!
@@ -1003,21 +934,11 @@ export default function Dashboard() {
                         </>
                       ) : (
                         <>
-                          {dataNotes?.[0]?.items.map((item: any) => (
+                          {dataNotes?.[0]?.items.map((item) => (
                             <li key={item.id} className="text-sm text-gray-500">
                               {item.content}
                             </li>
                           ))}
-                          {/* <li className="text-sm text-gray-500">
-                            Hari ini udah ngantuk banget, pengen cepet-cepet
-                            tidur aja deh.
-                          </li>
-                          <li className="text-sm text-gray-500">
-                            Meeting sama tim lancar bgt, orangnya kocak2
-                          </li>
-                          <li className="text-sm text-gray-500">
-                            hari ini tugas harus kelarrr....
-                          </li> */}
                         </>
                       )}
                     </div>
@@ -1033,22 +954,23 @@ export default function Dashboard() {
                       </div>
                     ) : (
                       <>
-                        {new Date().toLocaleDateString("en-US", {
+                        {dataNotes?.[0]?.date &&
+                        new Date().toLocaleDateString("en-US", {
                           weekday: "long",
                           year: "numeric",
                           month: "long",
                           day: "numeric",
                         }) !==
-                        new Date(dataNotes?.[0]?.date).toLocaleDateString(
-                          "en-US",
-                          {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          },
-                        )
-                          ? dataNotes?.map((note: any) => (
+                          new Date(dataNotes?.[0]?.date).toLocaleDateString(
+                            "en-US",
+                            {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            },
+                          )
+                          ? dataNotes?.map((note) => (
                               <div key={note.id} className="space-y-2">
                                 <p className="text-[14px] text-gray-500">
                                   {new Date(note.date).toLocaleDateString(
@@ -1061,7 +983,7 @@ export default function Dashboard() {
                                     },
                                   )}
                                 </p>
-                                {note.items.map((item: any) => (
+                                {note.items.map((item) => (
                                   <li
                                     key={item.id}
                                     className="text-sm text-gray-500"
@@ -1071,31 +993,29 @@ export default function Dashboard() {
                                 ))}
                               </div>
                             ))
-                          : dataNotes
-                              ?.slice(1) // hilangkan array pertama jika tanggal sama
-                              .map((note: any) => (
-                                <div key={note.id} className="space-y-2">
-                                  <p className="text-[14px] text-gray-500">
-                                    {new Date(note.date).toLocaleDateString(
-                                      "en-US",
-                                      {
-                                        weekday: "long",
-                                        year: "numeric",
-                                        month: "long",
-                                        day: "numeric",
-                                      },
-                                    )}
-                                  </p>
-                                  {note.items.map((item: any) => (
-                                    <li
-                                      key={item.id}
-                                      className="text-sm text-gray-500"
-                                    >
-                                      {item.content}
-                                    </li>
-                                  ))}
-                                </div>
-                              ))}
+                          : dataNotes?.slice(1).map((note) => (
+                              <div key={note.id} className="space-y-2">
+                                <p className="text-[14px] text-gray-500">
+                                  {new Date(note.date).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                      weekday: "long",
+                                      year: "numeric",
+                                      month: "long",
+                                      day: "numeric",
+                                    },
+                                  )}
+                                </p>
+                                {note.items.map((item) => (
+                                  <li
+                                    key={item.id}
+                                    className="text-sm text-gray-500"
+                                  >
+                                    {item.content}
+                                  </li>
+                                ))}
+                              </div>
+                            ))}
                       </>
                     )}
                   </CardContent>
@@ -1238,7 +1158,9 @@ export default function Dashboard() {
               <div className="w-full rounded-t-md border border-b-0 bg-white px-4 py-1.5 font-bold shadow sm:w-fit">
                 <p>
                   <span className="text-amber-500">Ask me anything, </span>
-                  <span className="text-teal-500">I'm here to help 😁</span>
+                  <span className="text-teal-500">
+                    I&apos;m here to help 😁
+                  </span>
                 </p>
               </div>
 
@@ -1250,7 +1172,7 @@ export default function Dashboard() {
                   You can ask me for 8 times a day! what a service 😎
                 </Label>
                 <Label>
-                  quota left: <span className="font-bold text-teal-600">7</span>
+                  quota left: <span className="font-bold text-teal-600">8</span>
                 </Label>
               </div>
 
@@ -1262,7 +1184,7 @@ export default function Dashboard() {
                         <span className="block size-20 animate-spin rounded-full border-t-2 border-b-2 border-stone-600" />
                       </div>
                     )}
-                    {dataChat?.map((chatItem: any, index: number) => (
+                    {dataChat?.map((chatItem, index: number) => (
                       <div key={index} className="flex flex-col gap-2">
                         <div className="flex gap-2 self-end pl-5">
                           <div className="h-fit max-w-[500px] rounded-sm bg-green-100 px-2.5 py-1">
@@ -1285,7 +1207,7 @@ export default function Dashboard() {
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-2 pt-2 pr-2 sm:pr-4 pb-4 pl-4 sm:pl-12">
+                  <div className="flex items-center gap-2 pt-2 pr-2 pb-4 pl-4 sm:pr-4 sm:pl-12">
                     <Textarea
                       id="chat-ai"
                       rows={3}

@@ -1,5 +1,5 @@
-interface IProfile {
-  id: string;
+export interface IProfile {
+  id: number;
   name: string;
   email: string;
   phone: string;
@@ -11,5 +11,3 @@ interface IProfile {
   hasAnsweredQuestionnaire: boolean;
   createdAt: Date;
 }
-
-export type { IProfile };

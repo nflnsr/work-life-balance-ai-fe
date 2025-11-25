@@ -20,7 +20,7 @@ export function WhyUseUs() {
           WHY USE US?
         </h1>
         <p className="text-justify font-sans text-lg">
-          It's a dediacted platform that provides comprehensive insurance
+          It&apos;s a dediacted platform that provides comprehensive insurance
           solutions tailored to your needs. With our user-friendly interface,
           you can easily manage your policies, file claims, and access support
           anytime, anywhere.

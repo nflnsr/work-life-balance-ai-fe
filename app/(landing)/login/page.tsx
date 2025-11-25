@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { formSchema, FormType } from "@/validator/login";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -24,7 +24,6 @@ import { Button } from "@/components/ui/button";
 export default function Page() {
   const { setAccessToken, setUser, setIsLoggedIn } = useAuthStore();
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: async (input: FormType) => {

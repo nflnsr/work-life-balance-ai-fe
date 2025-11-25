@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { BarChart2, Clock, Compass, Heart, Lightbulb, Zap } from "lucide-react";
+import { BarChart2, Clock, Compass, History, Lightbulb, NotebookPen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/feature-card";
 import HeroIllustration from "@/components/hero-illustration";
@@ -101,8 +101,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard
               icon={<Clock className="h-10 w-10 text-amber-600" />}
-              title="Time Tracking"
-              description="Automatically track how you spend your time across work and personal activities."
+              title="Scheduling"
+              description="Automatically track how you spend your time across work and personal activities everyday."
             />
             <FeatureCard
               icon={<BarChart2 className="h-10 w-10 text-amber-600" />}
@@ -115,19 +115,19 @@ export default function Home() {
               description="Receive personalized recommendations to improve your work-life balance."
             />
             <FeatureCard
-              icon={<Zap className="h-10 w-10 text-amber-600" />}
-              title="Productivity Boost"
-              description="Optimize your work hours to maximize productivity and efficiency."
+              icon={<History className="h-10 w-10 text-amber-600" />}
+              title="Daily Overview"
+              description="History "
             />
             <FeatureCard
-              icon={<Heart className="h-10 w-10 text-amber-600" />}
-              title="Wellness Integration"
-              description="Connect with wellness apps to track your physical and mental health."
+              icon={<NotebookPen className="h-10 w-10 text-amber-600" />}
+              title="Note History"
+              description=""
             />
             <FeatureCard
               icon={<Compass className="h-10 w-10 text-amber-600" />}
-              title="Goal Setting"
-              description="Set and track personal and professional goals to maintain balance."
+              title="AI Asisstant"
+              description=""
             />
           </div>
         </section>
@@ -141,7 +141,7 @@ export default function Home() {
               Join thousands of users who have improved their productivity and
               wellbeing with our AI platform.
             </p>
-            <Button className="bg-white text-sm text-teal-800 hover:bg-gray-100 rounded-full sm:px-8 px-4 py-6 md:text-lg font-medium">
+            <Button className="bg-white text-sm text-teal-800 hover:bg-gray-100 rounded-full sm:px-8 px-4 py-6 md:text-lg font-medium cursor-pointer">
               GET STARTED FOR FREE
             </Button>
           </div>

@@ -50,7 +50,7 @@ interface Inputs {
 // const PreRegister = dynamic(() => import("./_components/pre-register"));
 
 export default function Dashboard() {
-  const { user, isLoading, setIsLoading } = useAuthStore();
+  const { user, setIsLoading } = useAuthStore();
   console.log("user di dashboard:", user);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -86,7 +86,6 @@ export default function Dashboard() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
       name: "",

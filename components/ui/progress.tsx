@@ -11,9 +11,8 @@ const Progress = React.forwardRef<
   const [val, setVal] = React.useState(0)
 
   React.useEffect(() => {
-    let frame: number
     const animate = () => setVal(value!)
-    frame = requestAnimationFrame(animate)
+    const frame = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(frame)
   }, [value])
 
