@@ -11,7 +11,6 @@ import {
   Calendar,
   Check,
   Compass,
-  ExpandIcon,
   Home,
   Menu,
   Plus,
@@ -24,7 +23,6 @@ import {
   TriangleAlert,
   User,
   X,
-  XIcon,
 } from "lucide-react";
 import {
   Card,
@@ -48,15 +46,10 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormControl, FormField } from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 import { IRecommendation, IWlb } from "@/types/api/wlb";
 import { CircularProgress } from "@/components/ui/circular-progress";
@@ -74,7 +67,6 @@ import { IChat } from "@/types/api/chat";
 
 export default function Dashboard() {
   const { user, setIsLoading } = useAuthStore();
-  const [openAddSchedule, setOpenAddSchedule] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showDialogAlertChatAI, setShowDialogAlertChatAI] = useState(false);
   const [openAddNotes, setOpenAddNotes] = useState(false);
@@ -554,7 +546,6 @@ export default function Dashboard() {
                           </p> */}
                             <div className="pt-2">
                               <Button
-                                onClick={() => setOpenAddSchedule(true)}
                                 className="mx-auto block bg-stone-300/75 text-center text-black hover:bg-stone-200"
                               >
                                 Create Now!

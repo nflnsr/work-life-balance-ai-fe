@@ -11,7 +11,6 @@ import {
   Calendar,
   Check,
   Compass,
-  Heart,
   Home,
   Menu,
   Plus,
