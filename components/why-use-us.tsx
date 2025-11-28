@@ -20,10 +20,7 @@ export function WhyUseUs() {
           WHY USE US?
         </h1>
         <p className="text-justify font-sans text-lg">
-          It&apos;s a dediacted platform that provides comprehensive insurance
-          solutions tailored to your needs. With our user-friendly interface,
-          you can easily manage your policies, file claims, and access support
-          anytime, anywhere.
+          It&apos;s a dedicated platform that helps users achieve an optimal work-life balance. Integrates research and technology into a unified system that delivers services personalized to users&apos; needs.
         </p>
       </div>
       <div className="flex h-96 bg-amber-400">

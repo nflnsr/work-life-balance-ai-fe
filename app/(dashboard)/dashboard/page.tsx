@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  BarChart3,
   Bell,
   Calendar,
   Check,
@@ -20,6 +19,7 @@ import {
   Settings,
   ShieldHalf,
   Siren,
+  TestTube,
   TrainFrontTunnel,
   TriangleAlert,
   User,
@@ -91,7 +91,6 @@ interface CreateScheduleForm {
 
 export default function Dashboard() {
   const { user, setIsLoading } = useAuthStore();
-  console.log("user di dashboard:", user);
   const [openAddSchedule, setOpenAddSchedule] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showDialogAlertChatAI, setShowDialogAlertChatAI] = useState(false);
@@ -143,7 +142,7 @@ export default function Dashboard() {
   });
 
   const chartData = Array.from({ length: 7 }, (_, i) => ({
-    month: `D${i + 1}`,
+    day: `D${i + 1}`,
     score: dataWlbHistory?.[i]?.score,
   }));
 
@@ -274,33 +273,19 @@ export default function Dashboard() {
               Dashboard
             </Link>
             <Link
-              href="#"
+              href="/dashboard/sample"
               className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
             >
-              <BarChart3 className="h-5 w-5" />
-              testt
+              <TestTube className="h-5 w-5" />
+              Sample Account
             </Link>
             <Link
               href="#"
               className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
             >
               <Calendar className="h-5 w-5" />
-              AI CHAT
+              Feedback
             </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
-            >
-              <Heart className="h-5 w-5" />
-              Note
-            </Link>
-            {/* <Link
-              href="#"
-              className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
-            >
-              <Sliders className="h-5 w-5" />
-              Goals
-            </Link> */}
           </div>
           <div className="mt-8 px-4">
             <h3 className="px-3 text-xs font-semibold tracking-wider text-gray-500 uppercase">
@@ -381,8 +366,8 @@ export default function Dashboard() {
             <div className="flex flex-col justify-between gap-5 md:h-[600px] md:flex-row">
               <div className="flex w-full flex-col justify-between gap-5">
                 {/* Balance Score */}
-                <Card className="h-full">
-                  <CardHeader className="pb-2">
+                <Card className="h-full gap-3">
+                  <CardHeader>
                     <CardTitle>Work-Life Balance Score</CardTitle>
                     <CardDescription>
                       Your current balance score based on activity tracking
@@ -434,7 +419,7 @@ export default function Dashboard() {
                 </Card>
 
                 {/* Recommendations */}
-                <Card className="h-[400px] overflow-y-auto sm:h-full">
+                <Card className="h-[400px] gap-0 overflow-y-auto sm:h-full">
                   <CardHeader className="pb-4">
                     <CardTitle>Balance Advisor</CardTitle>
                     <CardDescription>
@@ -517,7 +502,7 @@ export default function Dashboard() {
               </div>
               <div className="flex w-full flex-col justify-between gap-5 sm:flex-row">
                 {/* Today's Schedule */}
-                <Card className="scroll-box h-[400px] w-full overflow-y-auto md:h-auto">
+                <Card className="scroll-box h-[400px] w-full gap-0 overflow-y-auto md:h-auto">
                   <CardHeader className="flex w-full flex-row justify-between space-y-0 pb-5">
                     <div className="">
                       <CardTitle>Today&apos;s Schedule</CardTitle>
@@ -840,8 +825,8 @@ export default function Dashboard() {
                 </Card>
 
                 {/* Your Great Notes */}
-                <Card className="scroll-box h-[400px] w-full overflow-y-auto md:h-auto">
-                  <CardHeader className="flex w-full flex-row justify-between space-y-0 pb-5">
+                <Card className="scroll-box h-[400px] w-full gap-0 overflow-y-auto md:h-auto">
+                  <CardHeader className="flex w-full flex-row justify-between space-y-0 pb-4">
                     <div className="">
                       <CardTitle>Your Great Notes</CardTitle>
                       <CardDescription className="pt-0.5 text-[14px]">
@@ -943,7 +928,7 @@ export default function Dashboard() {
                       )}
                     </div>
                   </CardContent>
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pt-4 pb-3">
                     <CardTitle>Your Notes Record</CardTitle>
                     {/* <CardDescription>Thursday, May 7, 2025</CardDescription> */}
                   </CardHeader>
@@ -1047,7 +1032,7 @@ export default function Dashboard() {
                     ].map((day, index) => (
                       <Card
                         key={day}
-                        className={`gap-0 py-1 ${index === 3 && "border-teal-500"} `}
+                        className={`gap-0 py-1 ${index === (dataWlbHistory?.length ?? 0) - 1 ? "border-teal-500" : ""} `}
                       >
                         <CardHeader className="px-4 py-2 pb-2">
                           <CardTitle className="text-sm font-medium">
@@ -1069,7 +1054,7 @@ export default function Dashboard() {
                 </TabsContent>
 
                 <TabsContent value="trends" className="">
-                  <Card className="">
+                  <Card className="gap-2">
                     <CardHeader>
                       <CardTitle>Area Chart</CardTitle>
                       <CardDescription>
@@ -1092,7 +1077,7 @@ export default function Dashboard() {
                         >
                           <CartesianGrid vertical={false} />
                           <XAxis
-                            dataKey="month"
+                            dataKey="day"
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
@@ -1184,6 +1169,18 @@ export default function Dashboard() {
                         <span className="block size-20 animate-spin rounded-full border-t-2 border-b-2 border-stone-600" />
                       </div>
                     )}
+                    {dataChat?.length === 0 &&
+                      !isLoadingChatAI &&
+                      !isPendingChatAI && (
+                        <div className="mx-auto w-full pt-4 pb-4">
+                          <p className="text-center text-[14px] text-gray-500">
+                            No questions asked yet.
+                          </p>
+                          <p className="text-center text-[14px] text-gray-500">
+                            Ask me now!
+                          </p>
+                        </div>
+                      )}
                     {dataChat?.map((chatItem, index: number) => (
                       <div key={index} className="flex flex-col gap-2">
                         <div className="flex gap-2 self-end pl-5">

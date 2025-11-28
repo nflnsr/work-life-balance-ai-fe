@@ -84,6 +84,7 @@ export default function PreRegisterPage({
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["wlb-latest"] }),
         queryClient.invalidateQueries({ queryKey: ["profile"] }),
+        queryClient.invalidateQueries({ queryKey: ["wlb-history"] }),
       ]);
       toast.success("Questionnaire submitted successfully");
       form.reset();

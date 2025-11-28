@@ -1,6 +1,13 @@
 "use client";
 import Link from "next/link";
-import { BarChart2, Clock, Compass, History, Lightbulb, NotebookPen } from "lucide-react";
+import {
+  BarChart2,
+  Clock,
+  Compass,
+  History,
+  Lightbulb,
+  NotebookPen,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/feature-card";
 import HeroIllustration from "@/components/hero-illustration";
@@ -11,37 +18,37 @@ export default function Home() {
     <div className="">
       <main>
         <section className="container mx-auto px-8 py-10 lg:py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 relative">
+          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+            <div className="relative space-y-6">
               {/* Decorative diamonds */}
-              <div className="absolute -left-4 top-0 w-3 h-3 bg-amber-500 rotate-45"></div>
-              <div className="absolute -left-4 top-12 w-3 h-3 bg-amber-400 rotate-45"></div>
-              <div className="absolute -left-4 top-24 w-3 h-3 bg-amber-300 rotate-45"></div>
-              <div className="absolute -left-4 top-36 w-3 h-3 bg-amber-500 rotate-45"></div>
-              <div className="absolute -left-4 top-48 w-3 h-3 bg-amber-400 rotate-45"></div>
-              <div className="absolute -left-4 top-60 w-3 h-3 bg-amber-300 rotate-45"></div>
+              <div className="absolute top-0 -left-4 h-3 w-3 rotate-45 bg-amber-500"></div>
+              <div className="absolute top-12 -left-4 h-3 w-3 rotate-45 bg-amber-400"></div>
+              <div className="absolute top-24 -left-4 h-3 w-3 rotate-45 bg-amber-300"></div>
+              <div className="absolute top-36 -left-4 h-3 w-3 rotate-45 bg-amber-500"></div>
+              <div className="absolute top-48 -left-4 h-3 w-3 rotate-45 bg-amber-400"></div>
+              <div className="absolute top-60 -left-4 h-3 w-3 rotate-45 bg-amber-300"></div>
 
-              <h1 className="text-3xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-3xl leading-tight font-bold lg:text-6xl">
                 WORK-LIFE BALANCE AI
               </h1>
-              <p className="text-lg text-gray-600 max-w-md">
+              <p className="max-w-md text-lg text-gray-600">
                 Our AI-powered platform helps you track, analyze, and improve
                 your work-life balance, so you can live a more fulfilling life.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button className="bg-transparent text-black border border-black rounded-full hover:bg-black hover:text-white">
+              <div className="flex flex-col gap-4 pt-4 sm:flex-row">
+                <Button className="rounded-full border border-black bg-transparent text-black hover:bg-black hover:text-white">
                   RESERVE DEMO
                 </Button>
-                <Button className="bg-transparent text-black border border-black rounded-full hover:bg-black hover:text-white">
+                <Button className="rounded-full border border-black bg-transparent text-black hover:bg-black hover:text-white">
                   GET STARTED
                 </Button>
               </div>
               <div className="pt-12">
-                <p className="text-sm mb-2">Follow Us</p>
+                <p className="mb-2 text-sm">Follow Us</p>
                 <div className="flex gap-4">
                   <Link href="#" aria-label="Facebook">
                     <svg
-                      className="w-6 h-6"
+                      className="h-6 w-6"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
@@ -55,7 +62,7 @@ export default function Home() {
                   </Link>
                   <Link href="#" aria-label="Twitter">
                     <svg
-                      className="w-6 h-6"
+                      className="h-6 w-6"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
@@ -65,7 +72,7 @@ export default function Home() {
                   </Link>
                   <Link href="#" aria-label="YouTube">
                     <svg
-                      className="w-6 h-6"
+                      className="h-6 w-6"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
@@ -80,7 +87,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative pt-5 sm:pt-0 sm:h-[500px]">
+            <div className="relative pt-5 sm:h-[500px] sm:pt-0">
               <HeroIllustration />
             </div>
           </div>
@@ -90,20 +97,18 @@ export default function Home() {
           <WhyUseUs />
         </section>
 
-        <section id="features" className="container mx-auto px-8 py-10 sm:py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <section
+          id="features"
+          className="container mx-auto px-8 py-10 sm:py-20"
+        >
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-bold">Powerful Features</h2>
+            <p className="mx-auto max-w-2xl text-lg text-gray-600">
               Our AI-powered platform offers a range of features to help you
               achieve better work-life balance.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<Clock className="h-10 w-10 text-amber-600" />}
-              title="Scheduling"
-              description="Automatically track how you spend your time across work and personal activities everyday."
-            />
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <FeatureCard
               icon={<BarChart2 className="h-10 w-10 text-amber-600" />}
               title="Balance Analytics"
@@ -115,33 +120,38 @@ export default function Home() {
               description="Receive personalized recommendations to improve your work-life balance."
             />
             <FeatureCard
+              icon={<Clock className="h-10 w-10 text-amber-600" />}
+              title="Scheduling"
+              description="Automatically track how you spend your time across work and personal activities everyday."
+            />
+            <FeatureCard
               icon={<History className="h-10 w-10 text-amber-600" />}
               title="Daily Overview"
-              description="History "
+              description="Summary and trends chart of your work-life to help you tracking your progress."
             />
             <FeatureCard
               icon={<NotebookPen className="h-10 w-10 text-amber-600" />}
-              title="Note History"
-              description=""
+              title="Notes"
+              description="Keep a journal of your thoughts and feelings to reflect on your work-life balance."
             />
             <FeatureCard
               icon={<Compass className="h-10 w-10 text-amber-600" />}
-              title="AI Asisstant"
-              description=""
+              title="AI Assistant"
+              description="Get support and guidance from our Professional AI Assistant to help you stay on the track."
             />
           </div>
         </section>
 
         <section className="container mx-auto px-8 py-16">
-          <div className="bg-gradient-to-r from-teal-700 to-teal-900 text-white rounded-3xl px-8 py-12 sm:p-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <div className="rounded-3xl bg-gradient-to-r from-teal-700 to-teal-900 px-8 py-12 text-center text-white sm:p-12">
+            <h2 className="mb-6 text-3xl font-bold md:text-4xl">
               Ready to Transform Your Work-Life Balance?
             </h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
+            <p className="mx-auto mb-8 max-w-2xl text-xl">
               Join thousands of users who have improved their productivity and
               wellbeing with our AI platform.
             </p>
-            <Button className="bg-white text-sm text-teal-800 hover:bg-gray-100 rounded-full sm:px-8 px-4 py-6 md:text-lg font-medium cursor-pointer">
+            <Button className="cursor-pointer rounded-full bg-white px-4 py-6 text-sm font-medium text-teal-800 hover:bg-gray-100 sm:px-8 md:text-lg">
               GET STARTED FOR FREE
             </Button>
           </div>
@@ -150,11 +160,11 @@ export default function Home() {
 
       <footer className="bg-gray-100 py-12">
         <div className="container mx-auto px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
             <div>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="mb-4 flex items-center gap-2">
                 <Compass className="h-6 w-6 text-amber-600" />
-                <span className="font-bold text-xl">
+                <span className="text-xl font-bold">
                   <span className="text-amber-600">Work</span>-
                   <span className="text-teal-600">Life</span> Balance
                 </span>
@@ -165,12 +175,12 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h3 className="font-bold mb-4">Product</h3>
+              <h3 className="mb-4 font-bold">Product</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Features
                   </Link>
@@ -178,7 +188,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Pricing
                   </Link>
@@ -186,7 +196,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Integrations
                   </Link>
@@ -194,7 +204,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     FAQ
                   </Link>
@@ -202,12 +212,12 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold mb-4">Company</h3>
+              <h3 className="mb-4 font-bold">Company</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     About Us
                   </Link>
@@ -215,7 +225,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Careers
                   </Link>
@@ -223,7 +233,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Blog
                   </Link>
@@ -231,7 +241,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Contact
                   </Link>
@@ -239,12 +249,12 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold mb-4">Legal</h3>
+              <h3 className="mb-4 font-bold">Legal</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Privacy Policy
                   </Link>
@@ -252,7 +262,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Terms of Service
                   </Link>
@@ -260,7 +270,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-amber-600 transition-colors"
+                    className="transition-colors hover:text-amber-600"
                   >
                     Cookie Policy
                   </Link>
@@ -268,7 +278,7 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-200 mt-12 pt-8 text-sm text-center">
+          <div className="mt-12 border-t border-gray-200 pt-8 text-center text-sm">
             <p>
               © {new Date().getFullYear()} Work-Life Balance AI. All rights
               reserved.
