@@ -3,7 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthStore } from "@/store/auth";
-import { Loading } from "@/public/assets/loading";
+import { Loading } from "@/components/loading";
+import { useDeviceStore } from "@/store/device";
 
 export function ProtectedRouteProvider({
   children,
@@ -11,19 +12,17 @@ export function ProtectedRouteProvider({
   children: React.ReactNode;
 }) {
   const { isLoggedIn, isLoading } = useAuthStore();
+  const { isMobile } = useDeviceStore();
   const router = useRouter();
 
   useEffect(() => {
     if (isLoggedIn && !isLoading) {
       router.replace("/dashboard");
-      console.log("kepush ke dashboard", isLoggedIn);
     }
   }, [isLoggedIn, router]);
 
   if (isLoggedIn || isLoading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   return <>{children}</>;

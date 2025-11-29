@@ -3,7 +3,7 @@
 import { useAuthStore } from "@/store/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Loading } from "@/public/assets/loading";
+import { Loading } from "@/components/loading";
 
 export function PrivateRouteProvider({
   children,
