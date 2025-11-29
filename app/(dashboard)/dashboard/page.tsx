@@ -1156,22 +1156,29 @@ export default function Dashboard() {
                   You can ask me for 8 times a day! what a service 😎
                 </Label>
                 <Label>
-                  quota left: <span className="font-bold text-teal-600">8</span>
+                  quota left:{" "}
+                  <span className="font-bold text-teal-600">
+                    {dataChat?.length === 0
+                      ? 8
+                      : dataChat?.[0]?.user?.chatQuota}
+                  </span>
                 </Label>
               </div>
 
               <div className="max-h-[550px] overflow-y-auto rounded-b-md border bg-white sm:max-h-[600px]">
                 <div>
-                  <div className="relative space-y-2 px-2 pt-4 sm:px-4">
+                  <div className="relative h-full min-h-24 space-y-2 px-2 pt-4 sm:px-4">
                     {(isLoadingChatAI || isPendingChatAI) && (
-                      <div className="absolute top-1/2 left-1/2 z-10 flex size-full -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white/40">
+                      // <div className="py-6">
+                      <div className="absolute top-1/2 left-1/2 z-10 flex size-full -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white/40 py-10">
                         <span className="block size-20 animate-spin rounded-full border-t-2 border-b-2 border-stone-600" />
                       </div>
+                      // </div>
                     )}
                     {dataChat?.length === 0 &&
                       !isLoadingChatAI &&
                       !isPendingChatAI && (
-                        <div className="mx-auto w-full pt-4 pb-4">
+                        <div className="mx-auto w-full py-4">
                           <p className="text-center text-[14px] text-gray-500">
                             No questions asked yet.
                           </p>
@@ -1183,7 +1190,7 @@ export default function Dashboard() {
                     {dataChat?.map((chatItem, index: number) => (
                       <div key={index} className="flex flex-col gap-2">
                         <div className="flex gap-2 self-end pl-5">
-                          <div className="h-fit max-w-[500px] rounded-sm bg-green-100 px-2.5 py-1">
+                          <div className="h-fit max-w-[500px] rounded-sm bg-amber-100 px-2.5 py-1">
                             <div>{chatItem.message}</div>
                           </div>
                           <Avatar
@@ -1211,11 +1218,15 @@ export default function Dashboard() {
                       required
                       className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                       placeholder="Type your question here..."
-                      disabled={isPendingChatAI || isLoadingChatAI}
+                      disabled={
+                        isPendingChatAI ||
+                        isLoadingChatAI ||
+                        (dataChat?.[0]?.user?.chatQuota ?? 0) <= 0
+                      }
                     />
                     <Button
                       type="button"
-                      className="inline-flex cursor-pointer items-center rounded-md bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:outline-none"
+                      className="inline-flex cursor-pointer items-center rounded-md bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:pointer-events-auto"
                       onClick={() => {
                         const textarea = document.getElementById(
                           "chat-ai",
@@ -1231,7 +1242,7 @@ export default function Dashboard() {
                           textarea.value = "";
                         }
                       }}
-                      disabled={isPendingChatAI || isLoadingChatAI}
+                      disabled={isPendingChatAI || isLoadingChatAI || (dataChat?.[0]?.user?.chatQuota ?? 0) <= 0}
                     >
                       <SendHorizonal className="h-4 w-4" />
                     </Button>
