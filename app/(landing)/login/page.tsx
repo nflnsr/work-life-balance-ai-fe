@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { formSchema, FormType } from "@/validator/login";
 import { useMutation } from "@tanstack/react-query";
@@ -20,8 +20,10 @@ import { axiosInstance } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeClosed } from "lucide-react";
 
 export default function Page() {
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { setAccessToken, setUser, setIsLoggedIn } = useAuthStore();
   const router = useRouter();
 
@@ -36,9 +38,6 @@ export default function Page() {
       setUser(data.data.user);
       setIsLoggedIn(true);
       router.replace("/dashboard");
-      // setTimeout(() => {
-      //   queryClient.invalidateQueries({ queryKey: ["profile"] });
-      // }, 500);
     },
     onError: () => {
       toast.error("Login failed");
@@ -64,7 +63,7 @@ export default function Page() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(/images/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
       >
-        <div className="w-full pb-10 h-full">
+        <div className="h-full w-full pb-10">
           <div className="mx-auto h-full w-full max-w-[500px] rounded-2xl bg-[rgba(255,255,255,0.25)] pt-10 pb-10 shadow-2xl backdrop-blur-[8px]">
             <div className="text-center">
               <div className="mx-auto h-fit w-fit rounded-lg bg-gradient-to-br from-cyan-500 to-gray-800 px-6 py-1.5 sm:px-20">
@@ -103,12 +102,23 @@ export default function Page() {
                     name="password"
                     render={({ field }) => (
                       <>
-                        <Label className="w-fit rounded-sm bg-cyan-800 px-2 text-lg font-semibold text-white">
-                          Password
-                        </Label>
+                        <div className="flex justify-between">
+                          <Label className="w-fit rounded-sm bg-cyan-800 px-2 text-lg font-semibold text-white">
+                            Password
+                          </Label>
+                          <Button
+                            type="button"
+                            className="h-fit bg-white px-0 py-1.5 text-black hover:bg-stone-300 has-[>svg]:px-2.5"
+                            onClick={() =>
+                              setShowConfirmPassword((prev) => !prev)
+                            }
+                          >
+                            {showConfirmPassword ? <EyeClosed /> : <Eye />}
+                          </Button>
+                        </div>
                         <FormControl>
                           <Input
-                            type="password"
+                            type={showConfirmPassword ? "text" : "password"}
                             placeholder="Enter your password"
                             className="mt-2 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px]"
                             {...field}
