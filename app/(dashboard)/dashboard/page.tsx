@@ -235,7 +235,7 @@ export default function Dashboard() {
   }, [user?.field, setIsLoading]);
 
   return (
-    <div className="min-h-screen max-w-screen bg-gray-50 lg:flex lg:flex-row">
+    <div className="min-h-[100svh] max-w-screen bg-gray-50 lg:flex lg:flex-row">
       {/* Mobile sidebar */}
       <div
         className={`fixed inset-0 z-50 bg-black/50 ${sidebarOpen ? "block" : "hidden"} lg:hidden`}
@@ -243,7 +243,7 @@ export default function Dashboard() {
       />
 
       <div
-        className={`fixed inset-y-0 top-0 left-0 z-50 h-screen w-64 transform bg-white shadow-lg transition-transform duration-500 ease-in-out lg:sticky lg:w-64 lg:translate-x-0 ${
+        className={`fixed inset-y-0 top-0 left-0 z-50 h-[100svh] w-64 transform bg-white shadow-lg transition-transform duration-500 ease-in-out lg:sticky lg:w-64 lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } ${!user?.hasAnsweredQuestionnaire && "pointer-events-auto select-auto"}`}
       >
