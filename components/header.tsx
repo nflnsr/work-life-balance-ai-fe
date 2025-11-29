@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import { Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,22 +24,46 @@ import { Button } from "@/components/ui/button";
 // } from "@/components/ui/carousel";
 
 export default function Header() {
-  const [openMenu, setOpenMenu] = useState(false);
+  // const [openMenu, setOpenMenu] = useState(false);
 
-  const toggleMenu = () => {
-    setOpenMenu((prev) => !prev);
-  };
+  // const toggleMenu = () => {
+  //   setOpenMenu((prev) => !prev);
+  // };
+
+  function toggleMenu(): void {
+    const html = document.documentElement;
+    const menuToggle: HTMLElement | null = document.querySelector("#menu");
+    const menuButton: HTMLElement | null = document.querySelector(
+      "#menuButton",
+    ) as HTMLButtonElement;
+
+    if (menuToggle) {
+      menuToggle.classList.toggle("hidden");
+      menuButton.classList.toggle("menu__open");
+      html.addEventListener("click", (e: MouseEvent) => {
+        if (
+          e.target !== menuToggle &&
+          !menuToggle.contains(e.target as Node) &&
+          e.target !== menuButton &&
+          !menuButton.contains(e.target as Node)
+        ) {
+          menuToggle.classList.add("hidden");
+          menuButton.classList.remove("menu__open");
+        }
+      });
+    }
+  }
 
   return (
     <header className="container mx-auto flex h-[var(--header-height)] items-center justify-between px-8 py-6">
       <nav className="flex w-full items-center justify-between">
-        <div className="flex items-center gap-2">
+        <Link href={"https://worklifebalance-ai.tech"} className="flex items-center gap-2">
           <Compass className="h-6 w-6 text-amber-600" />
           <span className="text-xl font-bold">
             <span className="text-amber-600">Work</span>-
             <span className="text-teal-600">Life</span> Balance
           </span>
-        </div>
+        </Link>
         <div className="hidden items-center md:flex md:gap-2 lg:gap-10">
           <Link
             href="/"
@@ -49,23 +72,23 @@ export default function Header() {
             Home
           </Link>
           <Link
-            href="/why-use-us"
+            href="/#why-use-us"
             className="text-sm font-medium transition-colors hover:text-amber-600"
           >
             Why Use Us?
           </Link>
           <Link
-            href="#features"
+            href="/#features"
             className="text-sm font-medium transition-colors hover:text-amber-600"
           >
             Features
           </Link>
-          <Link
+          {/* <Link
             href="#contact"
             className="text-sm font-medium transition-colors hover:text-amber-600"
           >
             Contact
-          </Link>
+          </Link> */}
         </div>
         <div className="hidden items-center gap-2 md:flex">
           <Link
@@ -122,50 +145,47 @@ export default function Header() {
           </Link>
         </div>
         <button
+          id="menuButton"
           className={`block md:hidden`}
           onClick={toggleMenu}
           aria-label="Menu"
           title="Menu"
         >
           <span
-            className={`menu__line origin-top-left transition duration-500 ${
-              openMenu ? "menu__open" : ""
-            }`}
+            className={`menu__line origin-top-left transition duration-500`}
           ></span>
           <span
-            className={`menu__line transition duration-700 ease-in-out ${
-              openMenu ? "menu__open" : ""
-            }`}
+            className={`menu__line transition duration-700 ease-in-out`}
           ></span>
           <span
-            className={`menu__line origin-bottom-left transition duration-500 ${
-              openMenu ? "menu__open" : ""
-            }`}
+            className={`menu__line origin-bottom-left transition duration-500`}
           ></span>
         </button>
       </nav>
       <div
-        className={`absolute top-[var(--header-height)] left-0 z-10 w-full list-none items-center justify-center space-y-3 rounded-b-2xl bg-stone-50 py-4 text-center shadow-lg ${
-          openMenu ? "" : "hidden"
-        }`}
+        id="menu"
+        className={`absolute top-[var(--header-height)] left-0 z-10 hidden w-full list-none items-center justify-center space-y-3 rounded-b-2xl bg-stone-50 py-4 text-center shadow-lg`}
       >
-        <li className="underline hover:no-underline hover:text-amber-600">
-          <Link href="/">Home</Link>
+        <li className="underline hover:text-amber-600 hover:no-underline">
+          <Link onClick={toggleMenu} href="/">
+            Home
+          </Link>
         </li>
-        <li className="underline hover:no-underline hover:text-amber-600">
-          <Link href="/about">About</Link>
+        <li className="underline hover:text-amber-600 hover:no-underline">
+          <Link onClick={toggleMenu} href="/#why-use-us">
+            Why Use Us
+          </Link>
         </li>
-        <li className="underline hover:no-underline hover:text-amber-600">
-          <Link href="/services">Services</Link>
-        </li>
-        <li className="underline hover:no-underline hover:text-amber-600">
-          <Link href="/contact">Contact</Link>
+        <li className="underline hover:text-amber-600 hover:no-underline">
+          <Link onClick={toggleMenu} href="/#features">
+            Features
+          </Link>
         </li>
         <div className="flex items-center justify-center gap-2">
           <li className="pt-2 underline">
             {/* <Dialog>
               <DialogTrigger asChild className=""> */}
-            <Link href="/login">
+            <Link onClick={toggleMenu} href="/login">
               <Button className="w-20 cursor-pointer rounded-full border-black bg-black text-white hover:border-[0.5px] hover:bg-white hover:text-gray-600">
                 Login
               </Button>
@@ -205,7 +225,7 @@ export default function Header() {
           <li className="pt-2 underline">
             {/* <Dialog> */}
             {/* <DialogTrigger asChild className=""> */}
-            <Link href="/sign-up">
+            <Link onClick={toggleMenu} href="/sign-up">
               <Button className="w-20 cursor-pointer rounded-full border-gray-500 bg-amber-500 text-white ease-in-out hover:border-[0.5px] hover:bg-white hover:text-black">
                 Sign Up
               </Button>
