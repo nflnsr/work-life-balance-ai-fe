@@ -1,0 +1,21 @@
+User-Agent: *
+Allow: /
+Disallow: /assets/*.svg$
+Disallow: /assets/projects/
+Disallow: /assets/certificates/
+Disallow: /_next/
+Disallow: /_next/*.svg$
+Disallow: /_next/static/
+Disallow: /_next/static/media/
+
+User-Agent: Googlebot
+Allow: /
+Disallow: /assets/*.svg$
+Disallow: /assets/projects/
+Disallow: /assets/certificates/
+Disallow: /_next/
+Disallow: /_next/*.svg$
+Disallow: /_next/static/
+Disallow: /_next/static/media/
+
+Sitemap: https://worklifebalance-ai.tech/sitemap.xml

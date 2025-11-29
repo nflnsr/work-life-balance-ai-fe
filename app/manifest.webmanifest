@@ -1,0 +1,17 @@
+{
+  "name": "Work-life Balance AI",
+  "short_name": "Work-life Balance AI",
+  "description": "Work-life Balance AI Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#14b8a6",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
+
