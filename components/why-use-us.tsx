@@ -3,16 +3,16 @@ import Image from "next/image";
 export function WhyUseUs() {
   return (
     <div id="why-use-us" className="relative block h-full bg-stone-200">
-      <div className="flex h-96 bg-teal-400">
+      <div className="flex h-full flex-col-reverse bg-teal-400 sm:flex-row">
         <Image
           src="/images/why-use-us-1.png"
           alt="Why Use Us Background"
           width={1200}
           height={400}
-          className="h-96 w-full object-cover opacity-90 sm:max-w-[65%]"
+          className="h-96 max-h-[280px] w-full object-cover opacity-90 sm:max-h-none sm:max-w-[65%]"
         />
         <div className="hidden w-full items-center justify-center sm:flex">
-          <p className="text-7xl font-bold text-white">WORK</p>
+          <p className="text-center text-7xl font-bold text-white">WORK</p>
         </div>
       </div>
       <div className="absolute top-1/2 left-1/2 z-10 w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-md border-4 border-t-amber-500 border-r-amber-500 border-b-teal-500 border-l-teal-500 bg-white px-4 py-4 shadow-2xl sm:w-auto sm:px-10">
@@ -25,16 +25,16 @@ export function WhyUseUs() {
           system that delivers services personalized to users&apos; needs.
         </p>
       </div>
-      <div className="flex h-96 bg-amber-400">
+      <div className="flex h-full bg-amber-400 flex-col-reverse sm:flex-row">
         <div className="hidden w-full items-center justify-center sm:flex">
-          <p className="text-7xl font-bold text-white">LIFE</p>
+          <p className="text-center text-7xl font-bold text-white">LIFE</p>
         </div>
         <Image
           src="/images/why-use-us-2.png"
           alt="Why Use Us Background"
           width={1920}
           height={400}
-          className="h-96 w-full sm:max-w-[65%] object-cover opacity-90"
+          className="h-96 max-h-[280px] w-full object-cover opacity-90 sm:max-h-none sm:max-w-[65%]"
         />
       </div>
     </div>
