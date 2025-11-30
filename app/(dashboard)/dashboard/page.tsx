@@ -585,7 +585,7 @@ export default function Dashboard() {
                             <Plus className="h-4 w-4 text-black" />
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="pb-5 sm:max-w-[425px] w-fit">
+                        <DialogContent className="pb-5 sm:max-w-[425px]">
                           <DialogHeader>
                             <DialogTitle>Add schedule</DialogTitle>
                             <DialogDescription>
@@ -594,7 +594,7 @@ export default function Dashboard() {
                           </DialogHeader>
                           <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)}>
-                              <div className="grid gap-4">
+                              <div className="grid gap-3">
                                 <div className="grid gap-3">
                                   <FormField
                                     control={form.control}
@@ -646,7 +646,7 @@ export default function Dashboard() {
                                     )}
                                   />
                                 </div>
-                                <div className="grid gap-3">
+                                <div className="grid gap-1">
                                   <FormField
                                     control={form.control}
                                     name="category"
@@ -665,7 +665,7 @@ export default function Dashboard() {
                                           <RadioGroup
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
-                                            className="flex w-full justify-between px-2 text-nowrap"
+                                            className="flex flex-wrap gap-0 w-0 min-[425px]:gap-2 min-[425px]:w-full justify-between px-2 text-nowrap"
                                           >
                                             <div className="flex items-center space-x-2 rounded-sm bg-white/90 py-0.5">
                                               <RadioGroupItem
@@ -712,7 +712,7 @@ export default function Dashboard() {
                                     )}
                                   />
                                 </div>
-                                <div className="grid gap-3">
+                                <div className="grid gap-1">
                                   <FormField
                                     control={form.control}
                                     name="looping"
@@ -733,9 +733,9 @@ export default function Dashboard() {
                                           <RadioGroup
                                             onValueChange={field.onChange}
                                             defaultValue={field.value || ""}
-                                            className="flex w-full justify-between px-2 text-nowrap"
+                                            className="flex flex-wrap gap-0 w-0 min-[425px]:gap-2 min-[425px]:w-full justify-between px-2 text-nowrap"
                                           >
-                                            <div className="flex items-center space-x-2 rounded-sm bg-white/90 py-0.5">
+                                            <div className="flex items-center space-x-2 rounded-sm bg-white/90">
                                               <RadioGroupItem
                                                 value=""
                                                 id="only-today-option"
