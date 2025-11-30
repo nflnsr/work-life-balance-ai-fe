@@ -62,7 +62,9 @@ export function CircularProgress({
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span
           className={cn(
-            circularResponsive ? "text-xl xl:text-4xl font-bold" : "text-4xl font-bold",
+            circularResponsive
+              ? "text-xl font-bold xl:text-4xl"
+              : "text-4xl font-bold",
             value >= 75
               ? "text-green-500"
               : value >= 50
@@ -72,7 +74,11 @@ export function CircularProgress({
         >
           {value}
         </span>
-        <span className={`text-muted-foreground ${circularResponsive ? "md:text-xs xl:text-sm " : "text-sm"}`}>Good</span>
+        <span
+          className={`text-muted-foreground ${circularResponsive ? "md:text-xs xl:text-sm" : "text-sm"}`}
+        >
+          {value >= 75 ? "Good" : value >= 50 ? "Average" : "Poor"}
+        </span>
       </div>
     </div>
   );

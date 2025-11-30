@@ -26,7 +26,6 @@ export const metadata: Metadata = {
   title: "Work-life Balance AI",
   description:
     "Work-life balance AI platform that helps users achieve an optimal work-life balance through personalized services.",
-  themeColor: "#14b8a6",
   robots: "index, follow",
   applicationName: "Work-life Balance AI",
   icons: {

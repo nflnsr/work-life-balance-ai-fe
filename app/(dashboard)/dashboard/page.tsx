@@ -279,7 +279,7 @@ export default function Dashboard() {
               Sample Account
             </Link>
             <Link
-              href="#"
+              href="/dashboard/feedback"
               className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
             >
               <Calendar className="h-5 w-5" />
