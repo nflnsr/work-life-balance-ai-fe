@@ -1,11 +1,30 @@
 "use client";
 
 import React from "react";
-
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import Avatar from "boring-avatars";
+import Image from "next/image";
+import { useAuthStore } from "@/store/auth";
+import { Button } from "@/components/ui/button";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useAxiosPrivate } from "@/hooks/use-axios-private";
 import PreRegister from "./_components/pre-register";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ISchedule } from "@/types/api/schedule";
+import { INote } from "@/types/api/note";
+import { IChat } from "@/types/api/chat";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { toast } from "sonner";
+import { IRecommendation, IWlb } from "@/types/api/wlb";
+import { CircularProgress } from "@/components/ui/circular-progress";
+import { TrendingUp } from "lucide-react";
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Bell,
   Calendar,
@@ -13,15 +32,16 @@ import {
   Compass,
   Home,
   Menu,
+  MonitorCheck,
   Plus,
   SendHorizonal,
-  Settings,
   ShieldHalf,
   Siren,
   TestTube,
   TrainFrontTunnel,
   TriangleAlert,
   User,
+  UserCog,
   X,
   XIcon,
 } from "lucide-react";
@@ -33,15 +53,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import Avatar from "boring-avatars";
-import Image from "next/image";
-import { useAuthStore } from "@/store/auth";
-import { Button } from "@/components/ui/button";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "@/hooks/use-axios-private";
 import {
   Dialog,
   DialogClose,
@@ -52,29 +63,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
   FormField,
   FormMessage,
 } from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { toast } from "sonner";
-import { IRecommendation, IWlb } from "@/types/api/wlb";
-import { CircularProgress } from "@/components/ui/circular-progress";
-import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { ISchedule } from "@/types/api/schedule";
-import { INote } from "@/types/api/note";
-import { IChat } from "@/types/api/chat";
 
 // const PreRegister = dynamic(() => import("./_components/pre-register"));
 
@@ -161,7 +161,20 @@ export default function Dashboard() {
     },
   });
 
-  console.log(dataChatQuota, "QUOTTAAA")
+  // const { data: dataQuotes } = useQuery({
+  //   queryKey: ["quotes"],
+  //   queryFn: async () => {
+  //     const { data } = await axios.get(
+  //       "https://api.api-ninjas.com/v2/quotes?categories=success,wisdom",
+  //       {
+  //         headers: {
+  //           "X-Api-Key": process.env.NEXT_PUBLIC_QUOTES_API_KEY || "",
+  //         },
+  //       },
+  //     );
+  //     return data;
+  //   },
+  // });
 
   const { mutate: mutateAddNotes } = useMutation({
     mutationKey: ["add-notes"],
@@ -302,20 +315,42 @@ export default function Dashboard() {
               Settings
             </h3>
             <div className="mt-2 space-y-1">
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
-              >
-                <User className="h-5 w-5" />
-                Profile
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
-              >
-                <Settings className="h-5 w-5" />
-                Settings
-              </Link>
+              <div className="flex items-center rounded-md bg-green-50">
+                <Link
+                  href="#"
+                  className="flex cursor-default items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+                >
+                  <User className="h-5 w-5" />
+                  Profile
+                </Link>
+                <span className="ml-2 text-xs font-semibold text-green-400 italic">
+                  Soon
+                </span>
+              </div>
+              <div className="flex items-center rounded-md bg-green-50">
+                <Link
+                  href="#"
+                  className="flex cursor-default items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+                >
+                  <MonitorCheck className="h-5 w-5" />
+                  Display
+                </Link>
+                <span className="ml-2 text-xs font-semibold text-green-400 italic">
+                  Soon
+                </span>
+              </div>
+              <div className="flex items-center rounded-md bg-green-50">
+                <Link
+                  href="#"
+                  className="flex cursor-default items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+                >
+                  <UserCog className="h-5 w-5" />
+                  Account
+                </Link>
+                <span className="ml-2 text-xs font-semibold text-green-400 italic">
+                  Soon
+                </span>
+              </div>
             </div>
           </div>
           <div className="absolute bottom-4 z-5 w-full px-4">
@@ -342,23 +377,29 @@ export default function Dashboard() {
             <button className="lg:hidden" onClick={() => setSidebarOpen(true)}>
               <Menu className="h-6 w-6" />
             </button>
-            <div className="flex items-center gap-4">
-              <button className="relative rounded-full p-1 text-gray-400 hover:text-gray-500">
-                <Bell className="h-6 w-6" />
-                <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
-              </button>
-              <div className="flex items-center">
-                <Image
-                  className="h-8 w-8 rounded-full"
-                  src="/images/avatar-profile.avif"
-                  alt="User avatar"
-                  width={32}
-                  height={32}
-                />
-                <span className="ml-2 text-sm font-medium text-gray-700">
-                  {user?.name}
-                </span>
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <button className="relative rounded-full p-1 text-gray-400 hover:text-gray-500">
+                  <Bell className="h-6 w-6" />
+                  <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
+                </button>
+                <div className="flex items-center">
+                  <Image
+                    className="h-8 w-8 rounded-full"
+                    src="/images/avatar-profile.avif"
+                    alt="User avatar"
+                    width={32}
+                    height={32}
+                  />
+                  <span className="ml-2 text-sm font-medium text-gray-700">
+                    {user?.name}
+                  </span>
+                </div>
               </div>
+              {/* <div className="hidden md:block max-w-[600px] max-h-12 text-sm leading-4 overflow-y-auto">
+                  {dataQuotes?.[0]?.quote} -{" "}
+                  <span className="font-semibold">{dataQuotes?.[0]?.author}</span>
+              </div> */}
             </div>
           </div>
         </header>
@@ -544,7 +585,7 @@ export default function Dashboard() {
                             <Plus className="h-4 w-4 text-black" />
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="pb-5 sm:max-w-[425px]">
+                        <DialogContent className="pb-5 sm:max-w-[425px] w-fit">
                           <DialogHeader>
                             <DialogTitle>Add schedule</DialogTitle>
                             <DialogDescription>
@@ -1083,7 +1124,7 @@ export default function Dashboard() {
                             left: 12,
                             right: 12,
                           }}
-                          className="h-40 text-green-500"
+                          className="h-40 text-green-400"
                         >
                           <CartesianGrid vertical={false} />
                           <XAxis

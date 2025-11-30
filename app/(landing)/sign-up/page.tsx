@@ -52,9 +52,7 @@ export default function Page() {
       router.replace("/login");
     },
     onError: (error: AxiosError<Response>) => {
-      toast.error(
-        `Register failed: ${error.response?.data.message}`,
-      );
+      toast.error(`Register failed: ${error.response?.data.message}`);
       console.error("Register failed:", error);
     },
   });
@@ -142,8 +140,8 @@ export default function Page() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(/images/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
         >
-          <div className="h-full w-full min-h-[calc(100vh-8rem-var(--header-height))]">
-            <div className="mx-auto h-full my-8 w-full max-w-[475px] min-h-[calc(100vh-8rem-var(--header-height))] rounded-2xl bg-[rgba(255,255,255,0.25)] shadow-2xl backdrop-blur-[8px]">
+          <div className="h-full min-h-[calc(100vh-8rem-var(--header-height))] w-full">
+            <div className="mx-auto my-8 h-full min-h-[calc(100vh-8rem-var(--header-height))] w-full max-w-[475px] rounded-2xl bg-[rgba(255,255,255,0.25)] shadow-2xl backdrop-blur-[8px]">
               <div className="pt-6 text-center">
                 <div className="mx-auto h-fit w-fit rounded-lg bg-gradient-to-br from-cyan-500 to-gray-800 px-16 py-1.5">
                   <h1 className="font-mono text-lg font-bold text-white">
@@ -227,7 +225,7 @@ export default function Page() {
                                     type="text"
                                     {...field}
                                     placeholder="Enter your phone number"
-                                    className="mb-0 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px] h-8"
+                                    className="mb-0 h-8 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px]"
                                   />
                                 </FormControl>
                               </>
@@ -257,7 +255,7 @@ export default function Page() {
                                     }
                                     value={field.value || ""}
                                     placeholder="Enter your age"
-                                    className="mb-0 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px] h-8"
+                                    className="mb-0 h-8 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px]"
                                   />
                                 </FormControl>
                               </>
@@ -291,7 +289,7 @@ export default function Page() {
                                       <RadioGroupItem
                                         value="male"
                                         id="gender-option-one"
-                                        className="ring-1 size-"
+                                        className="size- ring-1"
                                       />
                                       <Label
                                         htmlFor="gender-option-one"
@@ -419,7 +417,7 @@ export default function Page() {
                                   type="text"
                                   {...field}
                                   placeholder="Enter your bidang"
-                                  className="mt-1 mb-0 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px] h-8"
+                                  className="mt-1 mb-0 h-8 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px]"
                                 />
                                 <div className="flex gap-2">
                                   {/* <span className="mt-0.5 bg-amber-100 px-1 text-left text-xs">
@@ -430,23 +428,34 @@ export default function Page() {
                             )}
                           />
                         </div>
-                        <div className="text-left">
-                          <Label className="mt-1 w-fit rounded-sm bg-cyan-800 px-2 text-base font-semibold text-white">
-                            Hobi (Opsional)
-                          </Label>
-                          <Input
-                            type="text"
-                            placeholder="Hobi kamu..."
-                            className="mt-2 w-full bg-white/80 text-white placeholder:text-white/50 h-8"
-                          />
-                          <div className="flex gap-2">
-                            {/* <span className="mt-0.5 bg-amber-100 px-1 text-left text-xs">
+                        <div className="space-y-1">
+                          <FormField
+                            control={form.control}
+                            name="hobbies"
+                            render={({ field }) => (
+                              <>
+                                <Label className="mt-1 w-fit rounded-sm bg-cyan-800 px-2 text-base font-semibold text-white">
+                                  Hobi (Opsional)
+                                </Label>
+                                <FormControl className="">
+                                  <Input
+                                    type="text"
+                                    {...field}
+                                    placeholder="Enter your hobbies"
+                                    className="mb-0 h-8 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px]"
+                                  />
+                                </FormControl>
+                                <div className="flex gap-2">
+                                  {/* <span className="mt-0.5 bg-amber-100 px-1 text-left text-xs">
                               *pisahkan dengan koma jika lebih dari satu
                             </span> */}
-                            <FormMessage className="mt-0.5 w-fit bg-white px-1 text-xs text-nowrap text-red-600 underline">
-                              {form.formState.errors.hobbies?.message}
-                            </FormMessage>
-                          </div>
+                                  <FormMessage className="mt-0.5 w-fit bg-white px-1 text-xs text-nowrap text-red-600 underline">
+                                    {form.formState.errors.hobbies?.message}
+                                  </FormMessage>
+                                </div>
+                              </>
+                            )}
+                          />
                         </div>
 
                         <div className="pt-2.5 pb-1">
@@ -509,7 +518,7 @@ export default function Page() {
                             {/* <DialogHeader> */}
                             <Button
                               onClick={() => setOpenDialog(false)}
-                              className="absolute top-3 right-3 bg-white h-6 w-4 text-black hover:bg-stone-200"
+                              className="absolute top-3 right-3 h-6 w-4 bg-white text-black hover:bg-stone-200"
                             >
                               <XIcon />
                             </Button>

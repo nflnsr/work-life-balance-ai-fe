@@ -10,9 +10,10 @@ import {
   Compass,
   Home,
   Menu,
-  Settings,
+  MonitorCheck,
   TestTube,
   User,
+  UserCog,
   X,
 } from "lucide-react";
 import Image from "next/image";
@@ -128,20 +129,42 @@ export default function Dashboard() {
               Settings
             </h3>
             <div className="mt-2 space-y-1">
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
-              >
-                <User className="h-5 w-5" />
-                Profile
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
-              >
-                <Settings className="h-5 w-5" />
-                Settings
-              </Link>
+              <div className="flex items-center rounded-md bg-green-50">
+                <Link
+                  href="#"
+                  className="flex cursor-default items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+                >
+                  <User className="h-5 w-5" />
+                  Profile
+                </Link>
+                <span className="ml-2 text-xs font-semibold text-green-400 italic">
+                  Soon
+                </span>
+              </div>
+              <div className="flex items-center rounded-md bg-green-50">
+                <Link
+                  href="#"
+                  className="flex cursor-default items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+                >
+                  <MonitorCheck className="h-5 w-5" />
+                  Display
+                </Link>
+                <span className="ml-2 text-xs font-semibold text-green-400 italic">
+                  Soon
+                </span>
+              </div>
+              <div className="flex items-center rounded-md bg-green-50">
+                <Link
+                  href="#"
+                  className="flex cursor-default items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+                >
+                  <UserCog className="h-5 w-5" />
+                  Account
+                </Link>
+                <span className="ml-2 text-xs font-semibold text-green-400 italic">
+                  Soon
+                </span>
+              </div>
             </div>
           </div>
           <div className="absolute bottom-4 z-5 w-full px-4">
