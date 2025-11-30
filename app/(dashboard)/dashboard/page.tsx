@@ -153,6 +153,16 @@ export default function Dashboard() {
     },
   });
 
+  const { data: dataChatQuota } = useQuery({
+    queryKey: ["chat-quota"],
+    queryFn: async () => {
+      const { data } = await axiosPrivate.get("/chat/quota");
+      return data;
+    },
+  });
+
+  console.log(dataChatQuota, "QUOTTAAA")
+
   const { mutate: mutateAddNotes } = useMutation({
     mutationKey: ["add-notes"],
     mutationFn: async (notes: string) => {
@@ -203,6 +213,7 @@ export default function Dashboard() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["chat"] });
+      queryClient.invalidateQueries({ queryKey: ["chat-quota"] });
     },
   });
 
@@ -1158,9 +1169,7 @@ export default function Dashboard() {
                 <Label>
                   quota left:{" "}
                   <span className="font-bold text-teal-600">
-                    {dataChat?.length === 0
-                      ? 8
-                      : dataChat?.[0]?.user?.chatQuota}
+                    {dataChatQuota?.chatQuota ?? 8}
                   </span>
                 </Label>
               </div>
@@ -1221,12 +1230,12 @@ export default function Dashboard() {
                       disabled={
                         isPendingChatAI ||
                         isLoadingChatAI ||
-                        (dataChat?.[0]?.user?.chatQuota ?? 0) <= 0
+                        dataChatQuota?.chatQuota <= 0
                       }
                     />
                     <Button
                       type="button"
-                      className="inline-flex cursor-pointer items-center rounded-md bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:pointer-events-auto"
+                      className="inline-flex cursor-pointer items-center rounded-md bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:outline-none disabled:pointer-events-auto disabled:cursor-not-allowed"
                       onClick={() => {
                         const textarea = document.getElementById(
                           "chat-ai",
@@ -1242,7 +1251,11 @@ export default function Dashboard() {
                           textarea.value = "";
                         }
                       }}
-                      disabled={isPendingChatAI || isLoadingChatAI || (dataChat?.[0]?.user?.chatQuota ?? 0) <= 0}
+                      disabled={
+                        isPendingChatAI ||
+                        isLoadingChatAI ||
+                        dataChatQuota?.chatQuota <= 0
+                      }
                     >
                       <SendHorizonal className="h-4 w-4" />
                     </Button>
