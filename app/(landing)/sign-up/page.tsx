@@ -170,7 +170,7 @@ export default function Page() {
                                   <Input
                                     type="text"
                                     {...field}
-                                    placeholder="Enter your username"
+                                    placeholder="Enter your name"
                                     className="mb-0 h-8 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px]"
                                   />
                                 </FormControl>
@@ -401,7 +401,7 @@ export default function Page() {
                             name="field"
                             render={({ field }) => (
                               <>
-                                <Label className="mt-5 w-fit rounded-sm bg-cyan-800 px-2 text-base font-semibold text-white">
+                                <Label className="mt-5 w-fit rounded-sm bg-cyan-800 px-2 text-base font-semibold text-white text-left">
                                   Pekerjaan / Bidang yang Kamu Tekuni{" "}
                                   <span className="text-red-500">*</span>
                                 </Label>

@@ -84,7 +84,7 @@ export default function Page() {
                         <FormControl>
                           <Input
                             type="text"
-                            placeholder="Enter your username"
+                            placeholder="Enter your email"
                             className="mt-2 w-full bg-white/80 text-black placeholder:text-black/50 focus:bg-white/95 focus-visible:ring-[1.5px]"
                             {...field}
                           />
