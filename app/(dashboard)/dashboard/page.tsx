@@ -1109,7 +1109,7 @@ export default function Dashboard() {
                     <CardHeader>
                       <CardTitle>Area Chart</CardTitle>
                       <CardDescription>
-                        Showing total visitors for the last 6 months
+                        Showing up and down trend for work-life score
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="h-40 w-full">
