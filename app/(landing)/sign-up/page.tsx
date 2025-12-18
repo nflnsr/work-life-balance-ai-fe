@@ -325,7 +325,7 @@ export default function Page() {
                               <>
                                 <div className="mt-5 flex h-full items-center gap-2">
                                   <Label className="my-0 w-fit rounded-sm bg-cyan-800 px-2 py-0 text-base font-semibold text-white">
-                                    Seorang Pelajar atau Pekerja{" "}
+                                    Seorang Mahasiswa atau Pekerja{" "}
                                     <span className="text-red-500">*</span>
                                   </Label>
                                   <FormMessage className="mt-0.5 bg-white px-1 text-xs text-red-600 underline">
@@ -354,7 +354,7 @@ export default function Page() {
                                         htmlFor="student-option-one"
                                         className="w-16"
                                       >
-                                        Pelajar
+                                        Mahasiswa
                                       </Label>
                                     </div>
                                     <div className="flex items-center space-x-2 rounded-sm bg-white/90 px-2 py-1">

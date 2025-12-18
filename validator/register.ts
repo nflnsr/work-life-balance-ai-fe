@@ -10,7 +10,7 @@ export const formSchema = z
       .min(8, "konfirmasi password minimal 8 karakter"),
     phone: z.string().min(8, "minimal 8 karakter"),
     gender: z.enum(["male", "female"], "gender harus dipilih"),
-    isStudent: z.boolean("status pelajar harus dipilih"),
+    isStudent: z.boolean("status pekerjaan harus dipilih"),
     age: z.number().min(1, "umur harus diisi"),
     field: z.string().min(2, "bidang harus diisi"),
     hobbies: z.string().optional(),
