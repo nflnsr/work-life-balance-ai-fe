@@ -9,7 +9,7 @@ export default function HeroIllustration() {
           alt="Work-life balance illustration showing a person meditating between work and home spaces"
           width={600}
           height={600}
-          className="w-full h-auto"
+          className="w-full h-auto xl:p-6"
           priority
         />
       </div>
