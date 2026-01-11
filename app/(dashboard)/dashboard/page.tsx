@@ -527,20 +527,20 @@ export default function Dashboard() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                aria-disabled={item.checked}
+                                aria-disabled={item.checked || dataWlbHistory?.length === 7 }
                                 tabIndex={item.checked ? -1 : 0}
                                 onClick={() => {
-                                  if (item.checked) return;
+                                  if (item.checked || dataWlbHistory?.length === 7 ) return;
                                   mutateRecommendationChecked(item.id);
                                 }}
                                 className={`${
-                                  item.checked
+                                  item.checked || dataWlbHistory?.length === 7 
                                     ? "cursor-default border-green-600 bg-green-50 hover:bg-green-100"
                                     : "cursor-pointer"
                                 }`}
                               >
                                 <Check
-                                  className={`size-4 ${item.checked ? "text-green-600" : ""}`}
+                                  className={`size-4 ${item.checked || dataWlbHistory?.length === 7 ? "text-green-600" : ""}`}
                                 />
                               </Button>
                             </div>
