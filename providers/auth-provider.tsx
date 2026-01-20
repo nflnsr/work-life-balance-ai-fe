@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "@/hooks/use-axios-private";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const axiosPrivate = useAxiosPrivate();

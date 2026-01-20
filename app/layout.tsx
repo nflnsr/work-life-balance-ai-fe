@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Delius_Unicase } from "next/font/google";
 import "@/app/globals.css";
-import ReactQueryProvider from "@/provider/react-query-provider";
-import AuthProvider from "@/provider/auth-provider";
+import ReactQueryProvider from "@/providers/react-query-provider";
+import AuthProvider from "@/providers/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { DeviceCheckerProvider } from "@/provider/device-checker-provider";
+import { DeviceCheckerProvider } from "@/providers/device-checker-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

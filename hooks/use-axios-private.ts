@@ -1,10 +1,7 @@
 import { useEffect } from "react";
-import {
-  axiosPrivateInstance,
-  axiosPrivateInstance2,
-} from "@/lib/utils";
+import { axiosPrivateInstance, axiosPrivateInstance2 } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { setRefreshToken } from "@/server/auth";
 
 export function useAxiosPrivate() {
@@ -47,7 +44,7 @@ export function useAxiosPrivate() {
             setIsLoggedIn(true);
             setUser(data.data.user);
             prevRequest.headers["Authorization"] =
-            `Bearer ${data.data.accessToken}`;
+              `Bearer ${data.data.accessToken}`;
             prevRequest.sent = true;
             setIsLoading?.(false);
             return axiosPrivateInstance(prevRequest);

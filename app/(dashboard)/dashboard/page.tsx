@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import Avatar from "boring-avatars";
 import Image from "next/image";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "@/hooks/use-axios-private";
@@ -377,7 +377,7 @@ export default function Dashboard() {
             <button className="lg:hidden" onClick={() => setSidebarOpen(true)}>
               <Menu className="h-6 w-6" />
             </button>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <button className="relative rounded-full p-1 text-gray-400 hover:text-gray-500">
                   <Bell className="h-6 w-6" />
@@ -527,14 +527,20 @@ export default function Dashboard() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                aria-disabled={item.checked || dataWlbHistory?.length === 7 }
+                                aria-disabled={
+                                  item.checked || dataWlbHistory?.length === 7
+                                }
                                 tabIndex={item.checked ? -1 : 0}
                                 onClick={() => {
-                                  if (item.checked || dataWlbHistory?.length === 7 ) return;
+                                  if (
+                                    item.checked ||
+                                    dataWlbHistory?.length === 7
+                                  )
+                                    return;
                                   mutateRecommendationChecked(item.id);
                                 }}
                                 className={`${
-                                  item.checked || dataWlbHistory?.length === 7 
+                                  item.checked || dataWlbHistory?.length === 7
                                     ? "cursor-default border-green-600 bg-green-50 hover:bg-green-100"
                                     : "cursor-pointer"
                                 }`}
@@ -665,7 +671,7 @@ export default function Dashboard() {
                                           <RadioGroup
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
-                                            className="flex flex-wrap gap-0 w-0 min-[425px]:gap-2 min-[425px]:w-full justify-between px-2 text-nowrap"
+                                            className="flex w-0 flex-wrap justify-between gap-0 px-2 text-nowrap min-[425px]:w-full min-[425px]:gap-2"
                                           >
                                             <div className="flex items-center space-x-2 rounded-sm bg-white/90 py-0.5">
                                               <RadioGroupItem
@@ -733,7 +739,7 @@ export default function Dashboard() {
                                           <RadioGroup
                                             onValueChange={field.onChange}
                                             defaultValue={field.value || ""}
-                                            className="flex flex-wrap gap-0 w-0 min-[425px]:gap-2 min-[425px]:w-full justify-between px-2 text-nowrap"
+                                            className="flex w-0 flex-wrap justify-between gap-0 px-2 text-nowrap min-[425px]:w-full min-[425px]:gap-2"
                                           >
                                             <div className="flex items-center space-x-2 rounded-sm bg-white/90">
                                               <RadioGroupItem

@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeviceStore } from "@/store/device";
+import { useDeviceStore } from "@/stores/device";
 import { useEffect } from "react";
 
 export function DeviceCheckerProvider({

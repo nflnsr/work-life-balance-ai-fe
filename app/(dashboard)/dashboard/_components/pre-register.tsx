@@ -13,14 +13,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   QuestionnaireAnswerFormType,
   questionnaireAnswerSchema,
-} from "@/validator/questionnaire";
+} from "@/validators/questionnaire";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import {
-  Form,
-  FormControl,
-  FormField,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -548,12 +544,12 @@ export default function PreRegisterPage({
                           )}
                         />
                       </ScrollArea>
-                          
+
                       {index === Math.ceil(questions.length / 5) - 1 && (
                         <div className="flex w-full justify-center px-1">
                           <Button
                             type="submit"
-                            className="w-full rounded-lg bg-green-600 px-2 py-2 font-semibold text-white cursor-pointer hover:bg-green-600 hover:opacity-75"
+                            className="w-full cursor-pointer rounded-lg bg-green-600 px-2 py-2 font-semibold text-white hover:bg-green-600 hover:opacity-75"
                           >
                             Submit
                           </Button>

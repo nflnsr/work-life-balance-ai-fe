@@ -1,8 +1,8 @@
-import { useDeviceStore } from "@/store/device";
+import { useDeviceStore } from "@/stores/device";
 
 export function Loading() {
   const { isMobile } = useDeviceStore();
-  if (isMobile === true) {
+  if (isMobile === false) {
     return (
       <div className="flex h-screen items-center justify-center pb-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="312" height="155">

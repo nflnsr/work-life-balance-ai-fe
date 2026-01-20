@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { formSchema, FormType } from "@/validator/login";
+import { formSchema, FormType } from "@/validators/login";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { setRefreshToken } from "@/server/auth";
 import { axiosInstance } from "@/lib/utils";
 import { Input } from "@/components/ui/input";

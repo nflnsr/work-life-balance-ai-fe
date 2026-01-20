@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { formSchema, FormType } from "@/validator/register";
+import { formSchema, FormType } from "@/validators/register";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
@@ -401,7 +401,7 @@ export default function Page() {
                             name="field"
                             render={({ field }) => (
                               <>
-                                <Label className="mt-5 w-fit rounded-sm bg-cyan-800 px-2 text-base font-semibold text-white text-left">
+                                <Label className="mt-5 w-fit rounded-sm bg-cyan-800 px-2 text-left text-base font-semibold text-white">
                                   Pekerjaan / Bidang yang Kamu Tekuni{" "}
                                   <span className="text-red-500">*</span>
                                 </Label>

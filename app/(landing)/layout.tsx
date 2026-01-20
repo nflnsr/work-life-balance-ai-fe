@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import Header from "@/components/header";
 import GeometricBackground from "@/components/geometric-background";
-import { ProtectedRouteProvider } from "@/provider/protected-route-provider";
+import { ProtectedRouteProvider } from "@/providers/protected-route-provider";
 
 export const metadata: Metadata = {
   title: "Work-life Balance AI",

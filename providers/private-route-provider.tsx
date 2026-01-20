@@ -1,27 +1,25 @@
 "use client";
 
+import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useAuthStore } from "@/store/auth";
 import { Loading } from "@/components/loading";
-import { useDeviceStore } from "@/store/device";
 
-export function ProtectedRouteProvider({
+export function PrivateRouteProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const { isLoggedIn, isLoading } = useAuthStore();
-  const { isMobile } = useDeviceStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoggedIn && !isLoading) {
-      router.replace("/dashboard");
+    if (!isLoggedIn && !isLoading) {
+      router.replace("/login");
     }
   }, [isLoggedIn, router]);
 
-  if (isLoggedIn || isLoading) {
+  if (isLoading || !isLoggedIn) {
     return <Loading />;
   }
 

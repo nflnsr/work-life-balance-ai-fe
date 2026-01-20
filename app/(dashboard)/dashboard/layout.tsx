@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PrivateRouteProvider } from "@/provider/private-route-provider";
+import { PrivateRouteProvider } from "@/providers/private-route-provider";
 
 export const metadata: Metadata = {
   title: "Work-life Balance AI",
