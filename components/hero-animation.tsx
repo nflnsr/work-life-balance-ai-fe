@@ -12,7 +12,6 @@ export default function HeroAnimation() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Set canvas dimensions
     const setCanvasDimensions = () => {
       canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
@@ -21,7 +20,6 @@ export default function HeroAnimation() {
     setCanvasDimensions()
     window.addEventListener("resize", setCanvasDimensions)
 
-    // Particle class
     class Particle {
       x: number
       y: number
@@ -37,12 +35,11 @@ export default function HeroAnimation() {
         this.speedX = Math.random() * 3 - 1.5
         this.speedY = Math.random() * 3 - 1.5
 
-        // Teal color palette
         const colors = [
-          "rgba(20, 184, 166, 0.7)", // teal-500
-          "rgba(13, 148, 136, 0.7)", // teal-600
-          "rgba(45, 212, 191, 0.7)", // teal-400
-          "rgba(94, 234, 212, 0.7)", // teal-300
+          "rgba(20, 184, 166, 0.7)", 
+          "rgba(13, 148, 136, 0.7)",
+          "rgba(45, 212, 191, 0.7)", 
+          "rgba(94, 234, 212, 0.7)", 
         ]
         this.color = colors[Math.floor(Math.random() * colors.length)]
       }
@@ -67,7 +64,6 @@ export default function HeroAnimation() {
       }
     }
 
-    // Create particles
     const particlesArray: Particle[] = []
     const numberOfParticles = 50
 
@@ -75,15 +71,12 @@ export default function HeroAnimation() {
       particlesArray.push(new Particle())
     }
 
-    // Animation loop
     const animate = () => {
       if (!ctx) return
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Draw work-life balance illustration
       drawBalanceIllustration(ctx, canvas.width, canvas.height)
 
-      // Update and draw particles
       for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update()
         particlesArray[i].draw()
@@ -92,64 +85,53 @@ export default function HeroAnimation() {
       requestAnimationFrame(animate)
     }
 
-    // Draw work-life balance illustration
     function drawBalanceIllustration(ctx: CanvasRenderingContext2D, width: number, height: number) {
       const centerX = width / 2
       const centerY = height / 2
 
-      // Draw balance scale
-      ctx.strokeStyle = "#0d9488" // teal-600
+      ctx.strokeStyle = "#0d9488"
       ctx.lineWidth = 3
 
-      // Scale base
       ctx.beginPath()
       ctx.moveTo(centerX - 100, centerY + 100)
       ctx.lineTo(centerX + 100, centerY + 100)
       ctx.stroke()
 
-      // Scale stand
       ctx.beginPath()
       ctx.moveTo(centerX, centerY + 100)
       ctx.lineTo(centerX, centerY - 50)
       ctx.stroke()
 
-      // Scale arm (slightly tilted)
       ctx.beginPath()
       ctx.moveTo(centerX - 120, centerY - 40)
       ctx.lineTo(centerX + 120, centerY - 60)
       ctx.stroke()
 
-      // Left scale pan (work)
       ctx.beginPath()
       ctx.arc(centerX - 120, centerY - 10, 40, 0, Math.PI * 2)
-      ctx.fillStyle = "rgba(20, 184, 166, 0.2)" // teal-500 with opacity
+      ctx.fillStyle = "rgba(20, 184, 166, 0.2)" 
       ctx.fill()
       ctx.stroke()
 
-      // Right scale pan (life)
       ctx.beginPath()
       ctx.arc(centerX + 120, centerY - 30, 40, 0, Math.PI * 2)
-      ctx.fillStyle = "rgba(45, 212, 191, 0.2)" // teal-400 with opacity
+      ctx.fillStyle = "rgba(45, 212, 191, 0.2)" 
       ctx.fill()
       ctx.stroke()
 
-      // Work icon
-      ctx.fillStyle = "#0d9488" // teal-600
+      ctx.fillStyle = "#0d9488"
       ctx.font = "20px Arial"
       ctx.fillText("Work", centerX - 140, centerY - 10)
 
-      // Life icon
-      ctx.fillStyle = "#0d9488" // teal-600
+      ctx.fillStyle = "#0d9488"
       ctx.fillText("Life", centerX + 105, centerY - 30)
 
-      // AI element
       ctx.beginPath()
       ctx.arc(centerX, centerY - 100, 25, 0, Math.PI * 2)
-      ctx.fillStyle = "rgba(20, 184, 166, 0.7)" // teal-500 with opacity
+      ctx.fillStyle = "rgba(20, 184, 166, 0.7)" 
       ctx.fill()
       ctx.stroke()
 
-      // AI text
       ctx.fillStyle = "white"
       ctx.font = "bold 16px Arial"
       ctx.fillText("AI", centerX - 10, centerY - 95)

@@ -20,7 +20,6 @@ export default function Home() {
         <section className="container mx-auto px-8 py-10 lg:py-12">
           <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
             <div className="relative space-y-6">
-              {/* Decorative diamonds */}
               <div className="absolute top-0 -left-4 h-3 w-3 rotate-45 bg-amber-500"></div>
               <div className="absolute top-12 -left-4 h-3 w-3 rotate-45 bg-amber-400"></div>
               <div className="absolute top-24 -left-4 h-3 w-3 rotate-45 bg-amber-300"></div>
@@ -45,7 +44,6 @@ export default function Home() {
               <div className="pt-12">
                 <p className="mb-2 text-sm">Follow Us</p>
                 <div className="flex gap-4">
-                  {/* <Link href="" aria-label="Facebook"> */}
                   <svg
                     className="h-6 w-6"
                     fill="currentColor"
@@ -58,8 +56,6 @@ export default function Home() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  {/* </Link> */}
-                  {/* <Link href="" aria-label="Twitter"> */}
                   <svg
                     className="h-6 w-6"
                     fill="currentColor"
@@ -68,8 +64,6 @@ export default function Home() {
                   >
                     <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                   </svg>
-                  {/* </Link> */}
-                  {/* <Link href="" aria-label="YouTube"> */}
                   <svg
                     className="h-6 w-6"
                     fill="currentColor"
@@ -82,7 +76,6 @@ export default function Home() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  {/* </Link> */}
                 </div>
               </div>
             </div>
@@ -179,36 +172,16 @@ export default function Home() {
               <h3 className="mb-4 font-bold">Product</h3>
               <ul className="space-y-2 text-sm">
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Features
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Pricing
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Integrations
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   FAQ
-                  {/* </Link> */}
                 </li>
               </ul>
             </div>
@@ -216,36 +189,16 @@ export default function Home() {
               <h3 className="mb-4 font-bold">Company</h3>
               <ul className="space-y-2 text-sm">
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   About Us
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Careers
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Blog
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Contact
-                  {/* </Link> */}
                 </li>
               </ul>
             </div>
@@ -253,28 +206,13 @@ export default function Home() {
               <h3 className="mb-4 font-bold">Legal</h3>
               <ul className="space-y-2 text-sm">
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Privacy Policy
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Terms of Service
-                  {/* </Link> */}
                 </li>
                 <li className="transition-colors hover:text-amber-600">
-                  {/* <Link
-                    href="#"
-                    className="transition-colors hover:text-amber-600"
-                  > */}
                   Cookie Policy
-                  {/* </Link> */}
                 </li>
               </ul>
             </div>

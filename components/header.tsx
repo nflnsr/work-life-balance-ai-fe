@@ -2,34 +2,8 @@
 import Link from "next/link";
 import { Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
-// import {
-//   Dialog,
-//   DialogClose,
-//   DialogContent,
-//   DialogDescription,
-//   DialogFooter,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-// import { ShowPassword } from "./ui/show-password";
-// import {
-//   Carousel,
-//   CarouselContent,
-//   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious,
-// } from "@/components/ui/carousel";
 
 export default function Header() {
-  // const [openMenu, setOpenMenu] = useState(false);
-
-  // const toggleMenu = () => {
-  //   setOpenMenu((prev) => !prev);
-  // };
-
   function toggleMenu(): void {
     const html = document.documentElement;
     const menuToggle: HTMLElement | null = document.querySelector("#menu");
@@ -99,42 +73,6 @@ export default function Header() {
               Login
             </Button>
           </Link>
-          {/* <Dialog>
-            <DialogTrigger asChild className="">
-              <Button className=" hover:border-[0.5px] text-white bg-black border-black rounded-full hover:bg-white hover:text-gray-600 cursor-pointer w-20">
-                Login
-              </Button>
-            </DialogTrigger>
-            <form className="">
-              <DialogContent className="bg-transparent border-none shadow-none group p-0">
-                <div className="p-6 rounded-lg border-white shadow-lg bg-white group-data-[state=open]:motion-opacity-in-0 group-data-[state=open]:motion-translate-y-in-100 group-data-[state=open]:motion-blur-in-md">
-                  <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
-                    <DialogDescription>
-                      Make changes to your profile here. Click save when you&apos;re done.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 pt-2">
-                    <div className="grid gap-3">
-                      <Label htmlFor="user">Username/Email/Phone</Label>
-                      <Input id="user" name="user" defaultValue="" />
-                    </div>
-                    <div className="grid gap-3 relative">
-                      <Label htmlFor="password">Password</Label>
-                      <ShowPassword />
-                      <Input id="password" name="password" type="password" />
-                    </div>
-                  </div>
-                  <DialogFooter className="pt-3">
-                    <DialogClose asChild>
-                      <Button variant="outline">Cancel</Button>
-                    </DialogClose>
-                    <Button type="submit">Save changes</Button>
-                  </DialogFooter>
-                </div>
-              </DialogContent>
-            </form>
-          </Dialog> */}
           <Link
             href="/sign-up"
             className="w-20 cursor-pointer rounded-full border-gray-500 bg-amber-500 text-white ease-in-out hover:border-[0.5px] hover:bg-white hover:text-black"
@@ -183,129 +121,18 @@ export default function Header() {
         </li>
         <div className="flex items-center justify-center gap-2">
           <li className="pt-2 underline">
-            {/* <Dialog>
-              <DialogTrigger asChild className=""> */}
             <Link onClick={toggleMenu} href="/login">
               <Button className="w-20 cursor-pointer rounded-full border-black bg-black text-white hover:border-[0.5px] hover:bg-white hover:text-gray-600">
                 Login
               </Button>
             </Link>
-            {/* </DialogTrigger> */}
-            {/* <form className="">
-                <DialogContent className="bg-transparent border-none shadow-none group p-0">
-                  <div className="p-6 rounded-lg border-white shadow-lg bg-white group-data-[state=open]:motion-opacity-in-0 group-data-[state=open]:motion-translate-y-in-100 group-data-[state=open]:motion-blur-in-md">
-                    <DialogHeader>
-                      <DialogTitle>Edit profile</DialogTitle>
-                      <DialogDescription>
-                        Make changes to your profile here. Click save when you&apos;re done.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 pt-2">
-                      <div className="grid gap-3">
-                        <Label htmlFor="user">Username/Email/Phone</Label>
-                        <Input id="user" name="user" defaultValue="" />
-                      </div>
-                      <div className="grid gap-3 relative">
-                        <Label htmlFor="password">Password</Label>
-                        <ShowPassword />
-                        <Input id="password" name="password" type="password" />
-                      </div>
-                    </div>
-                    <DialogFooter className="pt-3">
-                      <DialogClose asChild>
-                        <Button variant="outline">Cancel</Button>
-                      </DialogClose>
-                      <Button type="submit">Save changes</Button>
-                    </DialogFooter>
-                  </div>
-                </DialogContent> */}
-            {/* </form> */}
-            {/* </Dialog> */}
           </li>
           <li className="pt-2 underline">
-            {/* <Dialog> */}
-            {/* <DialogTrigger asChild className=""> */}
             <Link onClick={toggleMenu} href="/sign-up">
               <Button className="w-20 cursor-pointer rounded-full border-gray-500 bg-amber-500 text-white ease-in-out hover:border-[0.5px] hover:bg-white hover:text-black">
                 Sign Up
               </Button>
             </Link>
-            {/* </DialogTrigger> */}
-            {/* <form className="">
-                <DialogContent className="bg-transparent border-none shadow-none group p-0">
-                  <Carousel>
-                    <CarouselContent>
-                      <CarouselItem>
-                        <div className="p-6 rounded-lg border-white shadow-lg bg-white group-data-[state=open]:motion-opacity-in-0 group-data-[state=open]:motion-translate-y-in-100 group-data-[state=open]:motion-blur-in-md">
-                          <DialogHeader>
-                            <DialogTitle>Edit profile</DialogTitle>
-                            <DialogDescription>
-                              Make changes to your profile here. Click save when you&apos;re done.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="grid gap-4">
-                            <div className="grid gap-3">
-                              <Label htmlFor="name">Nama</Label>
-                              <Input id="name" name="name" placeholder="Jhon Doe" />
-                            </div>
-                            <div className="grid gap-3">
-                              <Label htmlFor="username">Username</Label>
-                              <Input id="username" name="username" placeholder="johndoe" />
-                            </div>
-                          </div>
-                          <DialogFooter className="pt-3">
-                            <DialogClose asChild>
-                              <Button variant="outline">Cancel</Button>
-                            </DialogClose>
-                            <Button type="submit">Save changes</Button>
-                          </DialogFooter>
-                        </div>
-                      </CarouselItem>
-                      <CarouselItem>
-                        <div className="p-6 rounded-lg border-white shadow-lg bg-white group-data-[state=open]:motion-opacity-in-0 group-data-[state=open]:motion-translate-y-in-100 group-data-[state=open]:motion-blur-in-md">
-                          <DialogHeader>
-                            <DialogTitle>Contact Information</DialogTitle>
-                            <DialogDescription>Update your contact details here.</DialogDescription>
-                          </DialogHeader>
-                          <div className="grid gap-4">
-                            <div className="grid gap-3">
-                              <Label htmlFor="email">Email</Label>
-                              <Input
-                                id="email"
-                                name="email"
-                                defaultValue="pedro.duarte@example.com"
-                              />
-                            </div>
-                          </div>
-                          <DialogFooter className="pt-3">
-                            <DialogClose asChild>
-                              <Button variant="outline">Cancel</Button>
-                            </DialogClose>
-                            <Button type="submit">Save changes</Button>
-                          </DialogFooter>
-                        </div>
-                      </CarouselItem>
-                      <CarouselItem>
-                        <div className="p-6 rounded-lg border-white shadow-lg bg-white group-data-[state=open]:motion-opacity-in-0 group-data-[state=open]:motion-translate-y-in-100 group-data-[state=open]:motion-blur-in-md">
-                          <DialogHeader>
-                            <DialogTitle>Contact Information</DialogTitle>
-                            <DialogDescription>Update your contact details here.</DialogDescription>
-                          </DialogHeader>
-                          <div className="grid gap-4">
-                            <div className="grid gap-3">
-                              <Label htmlFor="phone">Phone</Label>
-                              <Input id="phone" name="phone" defaultValue="+1234567890" />
-                            </div>
-                          </div>
-                        </div>
-                      </CarouselItem>
-                    </CarouselContent>
-                    <CarouselPrevious>Sebelumnya</CarouselPrevious>
-                    <CarouselNext>Selanjutnya</CarouselNext>
-                  </Carousel>
-                </DialogContent>
-              </form>
-            </Dialog> */}
           </li>
         </div>
       </div>
