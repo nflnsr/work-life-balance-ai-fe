@@ -1,11 +1,13 @@
 import Image from "next/image";
+import whyUseUsBg1 from "@/assets/why-use-us-1.png";
+import whyUseUsBg2 from "@/assets/why-use-us-2.png";
 
 export function WhyUseUs() {
   return (
     <div id="why-use-us" className="relative block h-full bg-stone-200">
       <div className="flex h-full flex-col-reverse bg-teal-400 sm:flex-row">
         <Image
-          src="/images/why-use-us-1.png"
+          src={whyUseUsBg1}
           alt="Why Use Us Background"
           width={1200}
           height={400}
@@ -30,7 +32,7 @@ export function WhyUseUs() {
           <p className="text-center text-7xl font-bold text-white">LIFE</p>
         </div>
         <Image
-          src="/images/why-use-us-2.png"
+          src={whyUseUsBg2}
           alt="Why Use Us Background"
           width={1920}
           height={400}

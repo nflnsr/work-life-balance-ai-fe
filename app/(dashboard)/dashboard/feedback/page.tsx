@@ -23,6 +23,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "@/hooks/use-axios-private";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
+import profileImage from "@/assets/avatar-profile.avif";
 
 export default function Dashboard() {
   const { user, setIsLoading } = useAuthStore();
@@ -74,7 +75,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-[100svh] max-w-screen bg-gray-50 lg:flex lg:flex-row">
-      {/* Mobile sidebar */}
       <div
         className={`fixed inset-0 z-50 bg-black/50 ${sidebarOpen ? "block" : "hidden"} lg:hidden`}
         onClick={() => setSidebarOpen(false)}
@@ -179,9 +179,7 @@ export default function Dashboard() {
         </nav>
       </div>
 
-      {/* Main content */}
       <div className="h-screen min-h-screen w-full lg:h-auto">
-        {/* Top navigation */}
         <header
           className={`z-10 h-[calc(var(--header-height))] border-b bg-white shadow-sm ${
             !user?.field && "blur-xs"
@@ -199,7 +197,7 @@ export default function Dashboard() {
               <div className="flex items-center">
                 <Image
                   className="h-8 w-8 rounded-full"
-                  src="/images/avatar-profile.avif"
+                  src={profileImage}
                   alt="User avatar"
                   width={32}
                   height={32}
@@ -212,7 +210,6 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Dashboard content */}
         <main className="flex w-full max-w-[950px] flex-col p-6 pb-12">
           <h1 className="mb-4 text-2xl font-semibold text-gray-900">
             Feedback

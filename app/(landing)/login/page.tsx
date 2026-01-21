@@ -61,7 +61,7 @@ export default function Page() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(/images/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
+        className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(../assets/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
       >
         <div className="h-full w-full pb-10">
           <div className="mx-auto h-full w-full max-w-[500px] rounded-2xl bg-[rgba(255,255,255,0.25)] pt-10 pb-10 shadow-2xl backdrop-blur-[8px]">

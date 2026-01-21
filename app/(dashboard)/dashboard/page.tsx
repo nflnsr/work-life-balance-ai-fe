@@ -75,6 +75,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import profileImage from "@/assets/avatar-profile.avif";
 
 // const PreRegister = dynamic(() => import("./_components/pre-register"));
 
@@ -260,7 +261,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-[100svh] max-w-screen bg-gray-50 lg:flex lg:flex-row">
-      {/* Mobile sidebar */}
       <div
         className={`fixed inset-0 z-50 bg-black/50 ${sidebarOpen ? "block" : "hidden"} lg:hidden`}
         onClick={() => setSidebarOpen(false)}
@@ -365,9 +365,7 @@ export default function Dashboard() {
         </nav>
       </div>
 
-      {/* Main content */}
       <div className="h-screen min-h-screen w-full lg:h-auto">
-        {/* Top navigation */}
         <header
           className={`z-10 h-[calc(var(--header-height))] border-b bg-white shadow-sm ${
             !user?.field && "blur-xs"
@@ -386,7 +384,7 @@ export default function Dashboard() {
                 <div className="flex items-center">
                   <Image
                     className="h-8 w-8 rounded-full"
-                    src="/images/avatar-profile.avif"
+                    src={profileImage}
                     alt="User avatar"
                     width={32}
                     height={32}
@@ -404,7 +402,6 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Dashboard content */}
         {user?.hasAnsweredQuestionnaire ? (
           <main className="p-6 pb-12">
             <div className="mb-6">
@@ -416,7 +413,6 @@ export default function Dashboard() {
 
             <div className="flex flex-col justify-between gap-5 md:h-[600px] md:flex-row">
               <div className="flex w-full flex-col justify-between gap-5">
-                {/* Balance Score */}
                 <Card className="h-full gap-3">
                   <CardHeader>
                     <CardTitle>Work-Life Balance Score</CardTitle>
@@ -469,7 +465,6 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
 
-                {/* Recommendations */}
                 <Card className="h-[400px] gap-0 overflow-y-auto sm:h-full">
                   <CardHeader className="pb-4">
                     <CardTitle>Balance Advisor</CardTitle>
@@ -558,7 +553,6 @@ export default function Dashboard() {
                 </Card>
               </div>
               <div className="flex w-full flex-col justify-between gap-5 sm:flex-row">
-                {/* Today's Schedule */}
                 <Card className="scroll-box h-[400px] w-full gap-0 overflow-y-auto md:h-auto">
                   <CardHeader className="flex w-full flex-row justify-between space-y-0 pb-5">
                     <div className="">
@@ -814,20 +808,12 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {/* {dataSchedule.length > 0 ? (
-                        dataSchedule.map((items: { items: any[] }) => {
-                          const item = items.items;
-                          return ( */}
-
                       <>
                         {dataSchedule?.length === 0 && (
                           <div className="mx-auto w-full pb-2">
                             <p className="text-center text-[14px] text-gray-500">
                               There is no schedule for today.
                             </p>
-                            {/* <p className="text-center text-[14px] text-gray-500">
-                            Create one now!
-                          </p> */}
                             <div className="pt-2">
                               <Button
                                 onClick={() => setOpenAddSchedule(true)}
@@ -881,13 +867,11 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
 
-                {/* Your Great Notes */}
                 <Card className="scroll-box h-[400px] w-full gap-0 overflow-y-auto md:h-auto">
                   <CardHeader className="flex w-full flex-row justify-between space-y-0 pb-4">
                     <div className="">
                       <CardTitle>Your Great Notes</CardTitle>
                       <CardDescription className="pt-0.5 text-[14px]">
-                        {/* todays date */}
                         {new Date().toLocaleDateString("en-US", {
                           weekday: "long",
                           year: "numeric",
@@ -987,7 +971,6 @@ export default function Dashboard() {
                   </CardContent>
                   <CardHeader className="pt-4 pb-3">
                     <CardTitle>Your Notes Record</CardTitle>
-                    {/* <CardDescription>Thursday, May 7, 2025</CardDescription> */}
                   </CardHeader>
                   <CardContent className="space-y-5">
                     {dataNotes?.length === 0 ? (
@@ -1065,7 +1048,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Weekly Overview */}
             <div className="mb-8 pt-8">
               <Tabs defaultValue="activity">
                 <div className="mb-4 flex items-center justify-between">
@@ -1225,11 +1207,9 @@ export default function Dashboard() {
                 <div>
                   <div className="relative h-full min-h-24 space-y-2 px-2 pt-4 sm:px-4">
                     {(isLoadingChatAI || isPendingChatAI) && (
-                      // <div className="py-6">
                       <div className="absolute top-1/2 left-1/2 z-10 flex size-full -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white/40 py-10">
                         <span className="block size-20 animate-spin rounded-full border-t-2 border-b-2 border-stone-600" />
                       </div>
-                      // </div>
                     )}
                     {dataChat?.length === 0 &&
                       !isLoadingChatAI &&

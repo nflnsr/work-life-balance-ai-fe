@@ -65,6 +65,7 @@ import {
 import { ISchedule } from "@/types/api/schedule";
 import { INote } from "@/types/api/note";
 import { IChat } from "@/types/api/chat";
+import profileImage from "@/assets/avatar-profile.avif";
 
 export default function Dashboard() {
   const { user, setIsLoading } = useAuthStore();
@@ -377,7 +378,7 @@ export default function Dashboard() {
               <div className="flex items-center">
                 <Image
                   className="h-8 w-8 rounded-full"
-                  src="/images/avatar-profile.avif"
+                  src={profileImage}
                   alt="User avatar"
                   width={32}
                   height={32}
