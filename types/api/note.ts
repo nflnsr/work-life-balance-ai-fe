@@ -1,4 +1,4 @@
-export interface INote {
+interface INote {
   id: number;
   date: Date;
   items: {
@@ -6,3 +6,9 @@ export interface INote {
     content: string;
   }[];
 }
+
+interface CreateNoteForm {
+  content: string;
+}
+
+export { type INote, type CreateNoteForm };
