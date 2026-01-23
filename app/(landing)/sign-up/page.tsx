@@ -121,24 +121,12 @@ export default function Page() {
     }
   };
 
-  // useEffect(() => {
-  //   if (passwordError && isAllFilledExceptPassword) {
-  //     setOpenDialog(true);
-  //   }
-  // }, [passwordError, isAllFilledExceptPassword]);
-
-  // useEffect(() => {
-  //   if (!passwordError && openDialog) {
-  //     setOpenDialog(false);
-  //   }
-  // }, [passwordError, openDialog]);
-
   return (
     <Dialog open={openDialog} onOpenChange={handleDialogOpenChange}>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(../assets/bg-wlb.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
+          className="-z-10 flex h-full min-h-[calc(100vh-4rem-var(--header-height))] items-center justify-center bg-gradient-to-b bg-[url(../assets/wlb-bg.png)] from-[#000000] to-[#1a1a1a] bg-cover bg-center bg-no-repeat"
         >
           <div className="h-full min-h-[calc(100vh-8rem-var(--header-height))] w-full">
             <div className="mx-auto my-8 h-full min-h-[calc(100vh-8rem-var(--header-height))] w-full max-w-[475px] rounded-2xl bg-[rgba(255,255,255,0.25)] shadow-2xl backdrop-blur-[8px]">
