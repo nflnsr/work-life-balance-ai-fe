@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { axiosPrivateInstance, axiosPrivateInstance2 } from "@/lib/utils";
+import { axiosPrivateInstance, axiosPrivateInstanceSecond } from "@/lib/axios";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/auth";
 import { setRefreshToken } from "@/server/auth";
@@ -34,8 +34,8 @@ export function useAxiosPrivate() {
         ) {
           // setIsLoading?.(true);
           try {
-            const { data } = await axiosPrivateInstance2.post(
-              "/user/refresh-token",
+            const { data } = await axiosPrivateInstanceSecond.post(
+              "/api/user/refresh-token",
               {},
               { withCredentials: true },
             );

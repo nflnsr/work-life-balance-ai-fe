@@ -1,10 +1,12 @@
 "use client";
 
 import * as React from "react";
-import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
+import useEmblaCarousel, {
+  type UseEmblaCarouselType,
+} from "embla-carousel-react";
 // import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/classname";
 import { Button } from "@/components/ui/button";
 
 type CarouselApi = UseEmblaCarouselType[1];
@@ -54,7 +56,7 @@ function Carousel({
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
     },
-    plugins
+    plugins,
   );
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
@@ -83,7 +85,7 @@ function Carousel({
         scrollNext();
       }
     },
-    [scrollPrev, scrollNext]
+    [scrollPrev, scrollNext],
   );
 
   React.useEffect(() => {
@@ -108,7 +110,8 @@ function Carousel({
         carouselRef,
         api: api,
         opts,
-        orientation: orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+        orientation:
+          orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
         scrollPrev,
         scrollNext,
         canScrollPrev,
@@ -133,9 +136,17 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div ref={carouselRef} className="overflow-hidden h-[calc(100%-36px)]" data-slot="carousel-content">
+    <div
+      ref={carouselRef}
+      className="h-[calc(100%-36px)] overflow-hidden"
+      data-slot="carousel-content"
+    >
       <div
-        className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
+        className={cn(
+          "flex",
+          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          className,
+        )}
         {...props}
       />
     </div>
@@ -153,7 +164,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
-        className
+        className,
       )}
       {...props}
     />
@@ -174,11 +185,11 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute bg-white size-8 rounded-md border-2 border-gray-600 text-black h-9 max-w-32 w-full",
+        "absolute size-8 h-9 w-full max-w-32 rounded-md border-2 border-gray-600 bg-white text-black",
         orientation === "horizontal"
           ? "bottom-0 left-12 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        className,
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
@@ -206,11 +217,11 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute bg-white size-8 rounded-md border-2 border-gray-600 text-black h-9 max-w-32 w-full",
+        "absolute size-8 h-9 w-full max-w-32 rounded-md border-2 border-gray-600 bg-white text-black",
         orientation === "horizontal"
-          ? "bottom-0 right-12 -translate-y-1/2"
+          ? "right-12 bottom-0 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        className,
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
