@@ -77,7 +77,7 @@ export default function Dashboard() {
     if (!user?.hasAnsweredQuestionnaire) {
       router.replace("/dashboard");
     }
-  }, [user]);
+  }, [user?.hasAnsweredQuestionnaire, router]);
 
   return (
     <div className="min-h-[100svh] max-w-screen bg-gray-50 lg:flex lg:flex-row">
