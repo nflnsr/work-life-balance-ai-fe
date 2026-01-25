@@ -29,7 +29,7 @@ const usePostNote = (
   return useMutation({
     mutationKey: ["create-note"],
     mutationFn: (data: NoteFormType) =>
-      axiosPostPrivate<any>(`${baseAPIUrl}`, data, axiosPrivate),
+      axiosPostPrivate<any>(`${baseAPIUrl}`, axiosPrivate, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       toast.success("Note added successfully");

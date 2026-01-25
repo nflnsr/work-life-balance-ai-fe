@@ -38,7 +38,7 @@ const usePostChat = (
   return useMutation({
     mutationKey: ["create-chat"],
     mutationFn: (data: ChatAIFormType) =>
-      axiosPostPrivate<any>(`${baseAPIUrl}`, data, axiosPrivate),
+      axiosPostPrivate(`${baseAPIUrl}`, axiosPrivate, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["chats"] });
       queryClient.invalidateQueries({ queryKey: ["chat-quota"] });

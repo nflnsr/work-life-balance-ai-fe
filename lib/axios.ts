@@ -14,32 +14,33 @@ const axiosPrivateInstanceSecond = axios.create({
   withCredentials: true,
 });
 
-const axiosGetPrivate = async <T>(
+const axiosGetPrivate = async <Res>(
   endpoint: string,
   axiosPrivateHook: AxiosInstance,
-) => (await axiosPrivateHook.get<T>(endpoint)).data;
+) => (await axiosPrivateHook.get<Res>(endpoint)).data;
 
-const axiosPostPrivate = async <T>(
+const axiosPostPrivate = async <Req = unknown, Res = unknown>(
   endpoint: string,
-  data: any,
   axiosPrivateHook: AxiosInstance,
-) => (await axiosPrivateHook.post<T>(endpoint, data)).data;
+  data?: Req,
+) => (await axiosPrivateHook.post<Res>(endpoint, data)).data;
 
-const axiosPatchPrivate = async <T>(
+const axiosPatchPrivate = async <Req = unknown, Res = unknown>(
   endpoint: string,
   axiosPrivateHook: AxiosInstance,
-) => (await axiosPrivateHook.patch<T>(endpoint)).data;
+  data?: Req,
+) => (await axiosPrivateHook.patch<Res>(endpoint, data)).data;
 
-const axiosPutPrivate = async <T>(
+const axiosPutPrivate = async <Req = unknown, Res = unknown>(
   endpoint: string,
-  data: any,
   axiosPrivateHook: AxiosInstance,
-) => (await axiosPrivateHook.put<T>(endpoint, data)).data;
+  data?: Req,
+) => (await axiosPrivateHook.put<Res>(endpoint, data)).data;
 
-const axiosDeletePrivate = async <T>(
+const axiosDeletePrivate = async(
   endpoint: string,
   axiosPrivateHook: AxiosInstance,
-) => (await axiosPrivateHook.delete<T>(endpoint)).data;
+) => (await axiosPrivateHook.delete(endpoint)).data;
 
 export {
   axiosInstance,
