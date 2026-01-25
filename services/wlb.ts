@@ -8,6 +8,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { RecommendationFormType } from "@/validators/wlb";
 
 const baseAPIUrl = "/api/wlb";
 
@@ -30,7 +31,7 @@ const useGetWLBHistory = () => {
 };
 
 const usePatchRecommendation = (
-  params?: UseMutationOptions<any, any, number>,
+  params?: UseMutationOptions<any, any, RecommendationFormType>,
 ) => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
@@ -38,7 +39,7 @@ const usePatchRecommendation = (
   return useMutation({
     mutationKey: ["update-recommendation"],
     mutationFn: (id) =>
-      axiosPatchPrivate<any>(
+      axiosPatchPrivate<RecommendationFormType>(
         `${baseAPIUrl}/recommendation/${id}`,
         axiosPrivate,
       ),
