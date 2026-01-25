@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import { PrivateRouteProvider } from "@/providers/private-route-provider";
 import { SidebarProvider } from "@/components/sidebar";
-
-const BASE_URL = "https://worklifebalance-ai.tech";
+import { BASE_URL } from "@/utils/constants";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Kelola Keseimbangan Kerja-Hidup Anda",
+  title: "Dashboard - Kelola Work-life Balance Anda",
   description:
     "Dashboard personal Work-life Balance AI untuk melacak aktivitas, melihat skor keseimbangan, dan mendapatkan rekomendasi AI untuk meningkatkan work-life balance Anda.",
   keywords: [
     "dashboard work-life balance",
-    "tracking keseimbangan kerja",
+    "tracking work-life balance",
     "work life score",
     "ai recommendations",
     "personal productivity dashboard",
