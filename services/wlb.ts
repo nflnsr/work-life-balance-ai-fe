@@ -1,6 +1,6 @@
 import { useAxiosPrivate } from "@/hooks/use-axios-private";
 import { toast } from "sonner";
-import { axiosGetPrivate, axiosPatchPrivate } from "@/lib/utils";
+import { axiosGetPrivate, axiosPatchPrivate } from "@/lib/axios";
 import { IWlb } from "@/types/api/wlb";
 import {
   useMutation,
@@ -9,11 +9,9 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
+const baseAPIUrl = "/api/wlb";
 
-
-const baseAPIUrl = "/wlb";
-
-const getWLBLatest = () => {
+const useGetWLBLatest = () => {
   const axiosPrivate = useAxiosPrivate();
   return useQuery({
     queryKey: ["wlb-latest"],
@@ -21,7 +19,7 @@ const getWLBLatest = () => {
   });
 };
 
-const getWLBHistory = () => {
+const useGetWLBHistory = () => {
   const axiosPrivate = useAxiosPrivate();
 
   return useQuery({
@@ -31,7 +29,7 @@ const getWLBHistory = () => {
   });
 };
 
-const updateRecommendation = (
+const usePatchRecommendation = (
   params?: UseMutationOptions<any, any, number>,
 ) => {
   const axiosPrivate = useAxiosPrivate();
@@ -52,4 +50,4 @@ const updateRecommendation = (
   });
 };
 
-export { getWLBLatest, getWLBHistory, updateRecommendation };
+export { useGetWLBLatest, useGetWLBHistory, usePatchRecommendation };

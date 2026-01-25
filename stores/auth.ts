@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IProfile } from "@/types/api/profile";
+import { IProfile } from "@/types/api/user";
 
 type TAuthStore = {
   accessToken: string | null;

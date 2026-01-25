@@ -7,14 +7,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { createNote, getUserNotes } from "@/services/note";
+import { useGetNotes, usePostNote } from "@/services/note";
 import { Plus, XIcon } from "lucide-react";
 import { useState } from "react";
 
 export function Note() {
   const [openAddNotes, setOpenAddNotes] = useState(false);
-    const { data: dataNotes } = getUserNotes();
-    const { mutate: mutateAddNotes } = createNote();
+    const { data: dataNotes } = useGetNotes();
+    const { mutate: mutateAddNotes } = usePostNote();
 
   return (
     <Card className="scroll-box h-[400px] w-full gap-0 overflow-y-auto md:h-auto">

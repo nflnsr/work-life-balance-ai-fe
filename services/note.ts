@@ -1,17 +1,18 @@
 import { useAxiosPrivate } from "@/hooks/use-axios-private";
 import { toast } from "sonner";
-import { CreateNoteForm, INote } from "@/types/api/note";
-import { axiosGetPrivate, axiosPostPrivate } from "@/lib/utils";
+import { axiosGetPrivate, axiosPostPrivate } from "@/lib/axios";
+import { INote } from "@/types/api/note";
 import {
   useMutation,
   UseMutationOptions,
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { NoteFormType } from "@/validators/note";
 
-const baseAPIUrl = "/note";
+const baseAPIUrl = "/api/note";
 
-const getUserNotes = () => {
+const useGetNotes = () => {
   const axiosPrivate = useAxiosPrivate();
   return useQuery({
     queryKey: ["notes"],
@@ -19,13 +20,15 @@ const getUserNotes = () => {
   });
 };
 
-const createNote = (params?: UseMutationOptions<any, any, CreateNoteForm>) => {
+const usePostNote = (
+  params?: UseMutationOptions<any, any, NoteFormType>,
+) => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ["create-note"],
-    mutationFn: (data: CreateNoteForm) =>
+    mutationFn: (data: NoteFormType) =>
       axiosPostPrivate<any>(`${baseAPIUrl}`, data, axiosPrivate),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
@@ -35,4 +38,4 @@ const createNote = (params?: UseMutationOptions<any, any, CreateNoteForm>) => {
   });
 };
 
-export { getUserNotes, createNote };
+export { useGetNotes, usePostNote };

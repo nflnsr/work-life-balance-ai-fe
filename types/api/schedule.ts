@@ -7,11 +7,5 @@ interface ISchedule {
   looping?: Looping;
   category: Category;
 }
-interface CreateScheduleForm {
-  desc: string;
-  time: Date;
-  category: Category;
-  looping?: Looping | "" | null;
-}
 
-export { type ISchedule, type CreateScheduleForm, type Looping, type Category };
+export { type ISchedule, type Looping, type Category };

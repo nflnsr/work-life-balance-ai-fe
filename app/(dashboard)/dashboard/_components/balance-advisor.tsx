@@ -7,17 +7,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  getWLBHistory,
-  getWLBLatest,
-  updateRecommendation,
+  useGetWLBLatest,
+  useGetWLBHistory,
+  usePatchRecommendation,
 } from "@/services/wlb";
 import { IRecommendation } from "@/types/api/wlb";
 import { Check, ShieldHalf, Siren, TriangleAlert } from "lucide-react";
 
 export function BalanceAdvisor() {
-  const { data: dataWlbLatest } = getWLBLatest();
-  const { data: dataWlbHistory } = getWLBHistory();
-  const { mutate: mutateRecommendation } = updateRecommendation();
+  const { data: dataWlbLatest } = useGetWLBLatest();
+  const { data: dataWlbHistory } = useGetWLBHistory();
+  const { mutate: mutateRecommendation } = usePatchRecommendation();
 
   return (
     <Card className="h-[400px] gap-0 overflow-y-auto sm:h-full">

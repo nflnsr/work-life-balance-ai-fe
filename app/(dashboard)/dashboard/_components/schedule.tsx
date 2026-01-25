@@ -2,8 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { CreateScheduleForm } from "@/types/api/schedule";
-import { createSchedule, getScheduleToday } from "@/services/schedule";
+import { useGetScheduleToday, usePostSchedule } from "@/services/schedule";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,11 +27,12 @@ import {
 } from "@/components/ui/form";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { ScheduleFormType } from "@/validators/schedule";
 
 export function Schedule() {
   const [openAddSchedule, setOpenAddSchedule] = useState(false);
 
-  const form = useForm<CreateScheduleForm>({
+  const form = useForm<ScheduleFormType>({
     defaultValues: {
       desc: "",
       time: new Date(),
@@ -41,12 +41,11 @@ export function Schedule() {
     },
   });
 
-  const { data: dataSchedule } = getScheduleToday();
+  const { data: dataSchedule } = useGetScheduleToday();
 
-    const queryClient = useQueryClient();
-  
+  const queryClient = useQueryClient();
 
-  const { mutate: mutateCreateSchedule } = createSchedule({
+  const { mutate: mutateCreateSchedule } = usePostSchedule({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["schedule"] });
       toast.success("Schedule added successfully");
@@ -55,7 +54,7 @@ export function Schedule() {
     },
   });
 
-  function onSubmit(data: CreateScheduleForm) {
+  function onSubmit(data: ScheduleFormType) {
     mutateCreateSchedule(data);
   }
   return (

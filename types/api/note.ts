@@ -7,8 +7,4 @@ interface INote {
   }[];
 }
 
-interface CreateNoteForm {
-  content: string;
-}
-
-export { type INote, type CreateNoteForm };
+export { type INote };

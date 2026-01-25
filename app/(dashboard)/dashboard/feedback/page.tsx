@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Bell,
@@ -28,10 +28,10 @@ import profileImage from "@/assets/avatar-profile.avif";
 export default function Dashboard() {
   const { user, setIsLoading } = useAuthStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
-
+  const router = useRouter();
+  
   const { data: dataFeedback } = useQuery({
     queryKey: ["feedback"],
     queryFn: async () => {
@@ -72,6 +72,12 @@ export default function Dashboard() {
       setIsLoading?.(false);
     }
   }, [user?.field, setIsLoading]);
+
+  useEffect(() => {
+    if (!user?.hasAnsweredQuestionnaire) {
+      router.replace("/dashboard");
+    }
+  }, [user]);
 
   return (
     <div className="min-h-[100svh] max-w-screen bg-gray-50 lg:flex lg:flex-row">

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const formSchema = z.object({
+export const loginSchema = z.object({
   email: z.email({
     error: "alamat email tidak valid",
   }),
@@ -19,4 +19,4 @@ export const formSchema = z.object({
   rememberMe: z.boolean().optional(),
 });
 
-export type FormType = z.infer<typeof formSchema>;
+export type LoginFormType = z.infer<typeof loginSchema>;

@@ -8,10 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { getWLBLatest } from "@/services/wlb";
+import { useGetWLBLatest } from "@/services/wlb";
 
 export function WorkLifeScore() {
-  const { data } = getWLBLatest();
+  const { data } = useGetWLBLatest();
 
   return (
     <Card className="h-full gap-3">

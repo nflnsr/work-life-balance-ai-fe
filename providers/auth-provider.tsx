@@ -1,36 +1,14 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "@/hooks/use-axios-private";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/stores/auth";
+import { useGetProfile } from "@/services/user";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
-  const { setIsLoading, setUser, accessToken } = useAuthStore();
-  useQuery({
-    queryKey: ["profile"],
-    queryFn: async () => {
-      try {
-        const { data } = await axiosPrivate.get("/user/profile");
-        return data;
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        setIsLoading?.(false);
-        throw error;
-      }
-    },
-    onSuccess: (data) => {
-      setUser(data.data);
-    },
-    onSettled: () => {
-      setIsLoading?.(false);
-    },
-    retry: 2,
-    refetchOnWindowFocus: false,
-    staleTime: 10 * 60 * 1000,
-  });
+  const { accessToken } = useAuthStore();
+  useGetProfile();
 
   useEffect(() => {
     if (accessToken) {

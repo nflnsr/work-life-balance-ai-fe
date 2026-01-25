@@ -1,6 +1,19 @@
 "use client";
 import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { Form, FormControl, FormField } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAxiosPrivate } from "@/hooks/use-axios-private";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import {
+  QuestionnaireAnswerFormType,
+  questionnaireAnswerSchema,
+} from "@/validators/questionnaire";
 import {
   Carousel,
   CarouselContent,
@@ -8,21 +21,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  QuestionnaireAnswerFormType,
-  questionnaireAnswerSchema,
-} from "@/validators/questionnaire";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Form, FormControl, FormField } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { useAxiosPrivate } from "@/hooks/use-axios-private";
 
-export default function PreRegisterPage({
+export function PreRegister({
   isStudent,
 }: {
   isStudent?: boolean;

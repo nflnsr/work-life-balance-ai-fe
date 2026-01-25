@@ -1,22 +1,23 @@
 import { useAxiosPrivate } from "@/hooks/use-axios-private";
-import { AxiosInstance } from "axios";
 import { toast } from "sonner";
-import { CreateScheduleForm, ISchedule } from "@/types/api/schedule";
+import { AxiosInstance } from "axios";
+import { ISchedule } from "@/types/api/schedule";
 import {
   useMutation,
   UseMutationOptions,
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { ScheduleFormType } from "@/validators/schedule";
 
 const axiosGetPrivate = async <T>(
   endpoint: string,
   axiosPrivateHook: AxiosInstance,
 ) => (await axiosPrivateHook.get<T>(endpoint)).data;
 
-const baseAPIUrl = "/schedule";
+const baseAPIUrl = "/api/schedule";
 
-const getScheduleToday = () => {
+const useGetScheduleToday = () => {
   const axiosPrivate = useAxiosPrivate();
   return useQuery({
     queryKey: ["schedule"],
@@ -24,15 +25,15 @@ const getScheduleToday = () => {
   });
 };
 
-const createSchedule = (
-  params?: UseMutationOptions<any, any, CreateScheduleForm>,
+const usePostSchedule = (
+  params?: UseMutationOptions<any, any, ScheduleFormType>,
 ) => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ["create-schedule"],
-    mutationFn: async (data: CreateScheduleForm) => {
+    mutationFn: async (data: ScheduleFormType) => {
       const response = await axiosPrivate.post("/schedule", data);
       return response.data;
     },
@@ -44,4 +45,4 @@ const createSchedule = (
   });
 };
 
-export { getScheduleToday, createSchedule };
+export { useGetScheduleToday, usePostSchedule };
