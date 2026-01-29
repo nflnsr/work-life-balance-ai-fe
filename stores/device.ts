@@ -6,7 +6,7 @@ type TDevice = {
 };
 
 const useDeviceStore = create<TDevice>((set) => ({
-  isMobile: true,
+  isMobile: false,
   setIsMobile: (isMobile: boolean) => {
     set({ isMobile });
   },

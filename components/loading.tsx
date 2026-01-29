@@ -2,7 +2,7 @@ import { useDeviceStore } from "@/stores/device";
 
 export function Loading() {
   const { isMobile } = useDeviceStore();
-  if (isMobile === false) {
+  if (isMobile === true) {
     return (
       <div className="flex h-screen items-center justify-center pb-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="312" height="155">
